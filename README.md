@@ -25,11 +25,13 @@ Reading the DOM and the source should be enough to answer:
 ## Install
 
 ```bash
-npm install github:yahyaerturan/server-elements#v2.0.0
+npm install @server-elements/core
 ```
 
-Or copy `resources/js/` into your project — every import is relative, so it works
-with no bundler and no resolution step.
+Prefer to pin a release or skip the registry? Install from a GitHub tag
+(`npm install github:yahyaerturan/server-elements#v2.0.0`), or copy
+`resources/js/` into your project — every import is relative, so it works with no
+bundler and no resolution step.
 
 Full instructions, including CodeIgniter wiring and a verification checklist:
 **[docs/installation.md](docs/installation.md)**.

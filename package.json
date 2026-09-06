@@ -46,6 +46,9 @@
     "./server-elements.css": "./resources/css/server-elements.css",
     "./package.json": "./package.json"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^9.20.0",
@@ -72,6 +75,7 @@
     "test:a11y": "playwright test --project=browser tests/browser/accessibility.spec.js",
     "test:integration": "playwright test --project=integration",
     "test": "npm run deps:check && npm run arch:check && npm run css:check && npm run lint && npm run test:unit && npm run test:browser && npm run test:integration",
+    "prepublishOnly": "npm run deps:check && npm run arch:check && npm run css:check && npm run lint && npm run format:check && npm run test:unit && npm run build",
     "build": "vite build",
     "kit:css": "tailwindcss -i examples/dashboard/src/kit.css -o examples/dashboard/kit.css",
     "kit:watch": "tailwindcss -i examples/dashboard/src/kit.css -o examples/dashboard/kit.css --watch",

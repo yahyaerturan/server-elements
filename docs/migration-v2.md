@@ -32,8 +32,10 @@ is untouched.
 ## Step 1 — Update the dependency
 
 ```bash
-npm install github:yahyaerturan/server-elements#v2.0.0
+npm install @server-elements/core@^2
 ```
+
+Or from a GitHub release tag: `npm install github:yahyaerturan/server-elements#v2.0.0`.
 
 The import specifier changes (the codemod in Step 2 does this for you):
 

@@ -91,11 +91,17 @@ Best when your project already has a `package.json`.
 ### 1. Install
 
 ```bash
+npm install @server-elements/core
+```
+
+Or install straight from a release tag if you would rather not use the registry:
+
+```bash
 npm install github:yahyaerturan/server-elements#v2.0.0
 ```
 
-Pin a tag. Tracking a branch means an unreviewed change can arrive with an
-unrelated `npm install`.
+Pin a version either way. Tracking a branch means an unreviewed change can
+arrive with an unrelated `npm install`.
 
 ### 2. Import
 
@@ -130,8 +136,10 @@ static files and use Route A's `<script type="module">` approach.
 ### 4. Updating
 
 ```bash
-npm install github:yahyaerturan/server-elements#v2.0.0
+npm install @server-elements/core@latest
 ```
+
+Or from a GitHub release tag: `npm install github:yahyaerturan/server-elements#v2.0.0`.
 
 Read the [CHANGELOG](../CHANGELOG.md) first. Component tags, methods,
 attributes, properties and event contracts are all versioned API.
