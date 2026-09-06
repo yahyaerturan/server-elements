@@ -53,8 +53,8 @@ import { define } from '../../core/register.js';
 /**
  * A two-state switch.
  *
- * @element vui-toggle
- * @fires vui-toggle#toggle:changed
+ * @element se-toggle
+ * @fires se-toggle#toggle:changed
  */
 export class Toggle extends Component {
   static properties = Object.freeze(['on']);
@@ -147,7 +147,7 @@ export class Toggle extends Component {
   }
 }
 
-define('vui-toggle', Toggle);
+define('se-toggle', Toggle);
 ```
 
 Five details worth noticing, because they are the ones people miss:
@@ -163,7 +163,7 @@ Five details worth noticing, because they are the ones people miss:
 ## 3. Use it
 
 ```html
-<vui-toggle on></vui-toggle>
+<se-toggle on></se-toggle>
 ```
 
 ```js
@@ -190,7 +190,7 @@ const load = page => page.evaluate(() => import('/resources/js/components/common
 test('toggles and announces the change', async ({ page }) => {
   await load(page);
   await page.evaluate(() => {
-    document.getElementById('root').innerHTML = '<vui-toggle></vui-toggle>';
+    document.getElementById('root').innerHTML = '<se-toggle></se-toggle>';
   });
 
   const heard = await page.evaluate(() => {
@@ -210,9 +210,9 @@ test('reconnecting does not duplicate the handler', async ({ page }) => {
 
   const count = await page.evaluate(() => {
     const root = document.getElementById('root');
-    root.innerHTML = '<vui-toggle></vui-toggle>';
+    root.innerHTML = '<se-toggle></se-toggle>';
 
-    const toggle = root.querySelector('vui-toggle');
+    const toggle = root.querySelector('se-toggle');
     let events = 0;
     document.addEventListener('toggle:changed', () => (events += 1));
 

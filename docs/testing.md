@@ -62,7 +62,7 @@ reported zero violations across every component and every page state — while t
 real naming defects were present:
 
 - the modal's `<dialog>` had no accessible name. Authors put `aria-label` on
-  `<vui-modal>`, but the dialog role lives on the internal `<dialog>`. axe's
+  `<se-modal>`, but the dialog role lives on the internal `<dialog>`. axe's
   `aria-dialog-name` rule matches `[role="dialog"]`, and a native `<dialog>`
   carries only an implicit role, so the rule never examined it.
 - the combobox was named by its `placeholder`, because `<label for>` pointing at

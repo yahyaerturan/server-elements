@@ -1,7 +1,7 @@
 /**
- * @file `<vui-customer-selector>` — reference component R4.
+ * @file `<se-customer-selector>` — reference component R4.
  * @see docs/15-reference-components.md
- * @see docs/components/vui-customer-selector.md
+ * @see docs/components/se-customer-selector.md
  *
  * Proves the async half of the architecture: attribute + rich property
  * configuration, a service dependency instead of ad-hoc `fetch`, stale-request
@@ -21,12 +21,12 @@ let instanceCounter = 0;
 /**
  * Searchable customer picker.
  *
- * @element vui-customer-selector
- * @fires vui-customer-selector#customer:selected
- * @fires vui-customer-selector#customer:cleared
+ * @element se-customer-selector
+ * @fires se-customer-selector#customer:selected
+ * @fires se-customer-selector#customer:cleared
  *
  * @example
- * <vui-customer-selector endpoint="/api/customers/search" min-query="2"></vui-customer-selector>
+ * <se-customer-selector endpoint="/api/customers/search" min-query="2"></se-customer-selector>
  */
 export class CustomerSelector extends Component {
     /** @type {readonly string[]} */
@@ -85,7 +85,7 @@ export class CustomerSelector extends Component {
     #elements = null;
 
     /** @type {string} */
-    #uid = `vui-cs-${++instanceCounter}`;
+    #uid = `se-cs-${++instanceCounter}`;
 
     /**
      * Endpoint used by the default service.
@@ -190,9 +190,9 @@ export class CustomerSelector extends Component {
         // both derived from an internal instance counter. No server or user data
         // reaches this template; results are rendered via textContent below.
         this.innerHTML = `
-            <div class="vui-customer-selector__field">
+            <div class="se-customer-selector__field">
                 <input
-                    class="vui-customer-selector__input"
+                    class="se-customer-selector__input"
                     type="text"
                     role="combobox"
                     autocomplete="off"
@@ -203,14 +203,14 @@ export class CustomerSelector extends Component {
                     data-input
                 >
                 <button
-                    class="vui-customer-selector__clear"
+                    class="se-customer-selector__clear"
                     type="button"
                     data-action="clear"
                     hidden
                 ></button>
             </div>
-            <ul class="vui-customer-selector__list" id="${listId}" role="listbox" data-list hidden></ul>
-            <p class="vui-customer-selector__status" id="${statusId}" role="status" aria-live="polite" data-status></p>
+            <ul class="se-customer-selector__list" id="${listId}" role="listbox" data-list hidden></ul>
+            <p class="se-customer-selector__status" id="${statusId}" role="status" aria-live="polite" data-status></p>
         `;
 
         this.#elements = {
@@ -398,7 +398,7 @@ export class CustomerSelector extends Component {
         /**
          * A customer was selected.
          *
-         * @event vui-customer-selector#customer:selected
+         * @event se-customer-selector#customer:selected
          * @type {CustomEvent<{ id: string, customer: Customer, source: 'user'|'api' }>}
          */
         this.emit('customer:selected', {
@@ -431,7 +431,7 @@ export class CustomerSelector extends Component {
         /**
          * The selection was removed.
          *
-         * @event vui-customer-selector#customer:cleared
+         * @event se-customer-selector#customer:cleared
          * @type {CustomEvent<{ previous: Customer }>}
          */
         this.emit('customer:cleared', { previous });
@@ -541,20 +541,20 @@ export class CustomerSelector extends Component {
 
         this.#state.results.forEach((customer, index) => {
             const option = document.createElement('li');
-            option.className = 'vui-customer-selector__option';
+            option.className = 'se-customer-selector__option';
             option.id = `${this.#uid}-option-${index}`;
             option.setAttribute('role', 'option');
             option.setAttribute('aria-selected', 'false');
             option.dataset.index = String(index);
 
             const name = document.createElement('span');
-            name.className = 'vui-customer-selector__option-name';
+            name.className = 'se-customer-selector__option-name';
             name.textContent = customer.name;
             option.append(name);
 
             if (customer.email) {
                 const email = document.createElement('span');
-                email.className = 'vui-customer-selector__option-email';
+                email.className = 'se-customer-selector__option-email';
                 email.textContent = customer.email;
                 option.append(email);
             }
@@ -616,7 +616,7 @@ export class CustomerSelector extends Component {
      *
      * A custom element is not a labelable element, so the natural authoring
      * pattern — `<label for="customer-search">` next to
-     * `<vui-customer-selector id="customer-search">` — silently labels nothing:
+     * `<se-customer-selector id="customer-search">` — silently labels nothing:
      * `label.control` is `null` and the internal input is unnamed.
      *
      * That defect survives an automated audit, because axe accepts a
@@ -915,4 +915,4 @@ function describeError(error) {
     };
 }
 
-define('vui-customer-selector', CustomerSelector);
+define('se-customer-selector', CustomerSelector);

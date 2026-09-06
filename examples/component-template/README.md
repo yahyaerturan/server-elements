@@ -15,14 +15,14 @@ cp tests/browser/example-template.spec.js           tests/browser/your-thing.spe
 
 ## What to change
 
-| In the component                                    | Change to                                                  |
-| --------------------------------------------------- | ---------------------------------------------------------- |
-| `class CharacterCounter`                            | your class name                                            |
-| `define('app-character-counter', …)`                | your tag — must contain a hyphen                           |
-| The `'app-'` prefix block at the top                | move it to your boot file; keep one prefix per project     |
-| `counter:limit-exceeded` / `counter:limit-restored` | your event names, as `entity:past-tense`                   |
-| The import paths                                    | `'@vayes/ui-core'` if you installed with a package manager |
-| The file header                                     | what your component does                                   |
+| In the component                                    | Change to                                                         |
+| --------------------------------------------------- | ----------------------------------------------------------------- |
+| `class CharacterCounter`                            | your class name                                                   |
+| `define('app-character-counter', …)`                | your tag — must contain a hyphen                                  |
+| The `'app-'` prefix block at the top                | move it to your boot file; keep one prefix per project            |
+| `counter:limit-exceeded` / `counter:limit-restored` | your event names, as `entity:past-tense`                          |
+| The import paths                                    | `'@server-elements/core'` if you installed with a package manager |
+| The file header                                     | what your component does                                          |
 
 Delete what you do not need. Everything left is a pattern you would otherwise
 have to rediscover.
@@ -98,5 +98,5 @@ class that costs the most to find later.
   procedure, rules and checklist
 - [docs/ai-prompts.md](../../docs/ai-prompts.md) — prompts for building
   components with a coding agent
-- `vayes-ui-core-spec-pack/COMPONENT_SPEC_TEMPLATE.md` — the specification
+- `server-elements-spec-pack/COMPONENT_SPEC_TEMPLATE.md` — the specification
   template to fill in

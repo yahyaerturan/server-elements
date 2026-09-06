@@ -78,7 +78,7 @@ Example:
 
 ```js
 if (!this.endpoint) {
-    throw new Error('<vui-customer-selector> requires an endpoint attribute.');
+    throw new Error('<se-customer-selector> requires an endpoint attribute.');
 }
 ```
 

@@ -23,10 +23,10 @@ const CUSTOMERS = [
 async function mount(page, options = {}) {
     await page.evaluate(async attributes => {
         document.getElementById('root').innerHTML =
-            `<vui-customer-selector endpoint="/api/customers/search" debounce="0" ${attributes}></vui-customer-selector>`;
+            `<se-customer-selector endpoint="/api/customers/search" debounce="0" ${attributes}></se-customer-selector>`;
 
         await import('/resources/js/components/customer/CustomerSelector.js');
-        await customElements.whenDefined('vui-customer-selector');
+        await customElements.whenDefined('se-customer-selector');
     }, options.attributes ?? '');
 }
 
@@ -53,17 +53,17 @@ async function stubSearch(page, handler) {
     });
 }
 
-test.describe('<vui-customer-selector>', () => {
+test.describe('<se-customer-selector>', () => {
     test('renders an accessible combobox', async ({ page }) => {
         await mount(page);
 
-        const input = page.locator('vui-customer-selector input');
+        const input = page.locator('se-customer-selector input');
 
         await expect(input).toHaveAttribute('role', 'combobox');
         await expect(input).toHaveAttribute('aria-expanded', 'false');
         await expect(input).toHaveAttribute('aria-autocomplete', 'list');
-        await expect(page.locator('vui-customer-selector [role="listbox"]')).toBeHidden();
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('data-state', 'idle');
+        await expect(page.locator('se-customer-selector [role="listbox"]')).toBeHidden();
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'idle');
     });
 
     test('does not search below the minimum query length', async ({ page }) => {
@@ -79,7 +79,7 @@ test.describe('<vui-customer-selector>', () => {
         await page.waitForTimeout(100);
 
         expect(requests).toBe(0);
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('data-state', 'idle');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'idle');
     });
 
     test('searches, renders options and reports the results state', async ({ page }) => {
@@ -92,10 +92,7 @@ test.describe('<vui-customer-selector>', () => {
         await expect(page.locator('[role="option"]')).toHaveCount(3);
         await expect(page.locator('[role="option"]').first()).toContainText('Ada Lovelace');
         await expect(page.locator('[role="option"]').first()).toContainText('ada@example.test');
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute(
-            'data-state',
-            'results',
-        );
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'results');
         await expect(page.locator('input')).toHaveAttribute('aria-expanded', 'true');
     });
 
@@ -110,7 +107,7 @@ test.describe('<vui-customer-selector>', () => {
 
         await mount(page, { attributes: 'limit="5"' });
         await page.locator('input').fill('ada');
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('data-state', 'empty');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'empty');
 
         expect(seen.at(-1)?.searchParams.get('q')).toBe('ada');
         expect(seen.at(-1)?.searchParams.get('limit')).toBe('5');
@@ -122,7 +119,7 @@ test.describe('<vui-customer-selector>', () => {
 
         await page.locator('input').fill('zzz');
 
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('data-state', 'empty');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'empty');
         await expect(page.locator('[data-status]')).toHaveText('No customers found.');
         await expect(page.locator('[role="listbox"]')).toBeHidden();
     });
@@ -152,12 +149,12 @@ test.describe('<vui-customer-selector>', () => {
 
             const input = document.querySelector('input');
             input.value = 'ada';
-            await document.querySelector('vui-customer-selector').search('ada');
+            await document.querySelector('se-customer-selector').search('ada');
 
             return received;
         });
 
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('data-state', 'error');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'error');
         await expect(page.locator('[data-status]')).toHaveText('Could not load customers.');
 
         // The user-facing message is generic; the correlation id travels in the
@@ -200,7 +197,7 @@ test.describe('<vui-customer-selector>', () => {
         await mount(page);
 
         await page.evaluate(() => {
-            const selector = document.querySelector('vui-customer-selector');
+            const selector = document.querySelector('se-customer-selector');
             selector.search('ad');
             selector.search('ada');
         });
@@ -209,11 +206,8 @@ test.describe('<vui-customer-selector>', () => {
         await page.waitForTimeout(600);
 
         await expect(page.locator('[role="option"]')).toHaveCount(3);
-        await expect(page.locator('vui-customer-selector')).not.toContainText('STALE RESULT');
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute(
-            'data-state',
-            'results',
-        );
+        await expect(page.locator('se-customer-selector')).not.toContainText('STALE RESULT');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'results');
     });
 
     test('a cancelled request never renders the error state', async ({ page }) => {
@@ -232,14 +226,14 @@ test.describe('<vui-customer-selector>', () => {
         await mount(page);
 
         await page.evaluate(async () => {
-            const selector = document.querySelector('vui-customer-selector');
+            const selector = document.querySelector('se-customer-selector');
             const pending = selector.search('ada');
             selector.clear();
             await pending;
         });
 
         await page.waitForTimeout(500);
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('data-state', 'idle');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'idle');
         await expect(page.locator('[data-status]')).toHaveText('');
     });
 
@@ -249,17 +243,11 @@ test.describe('<vui-customer-selector>', () => {
 
         await page.locator('input').fill('ada');
 
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute(
-            'data-state',
-            'loading',
-        );
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute('aria-busy', '');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'loading');
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('aria-busy', '');
         await expect(page.locator('[data-status]')).toHaveText('Searching…');
 
-        await expect(page.locator('vui-customer-selector')).toHaveAttribute(
-            'data-state',
-            'results',
-        );
+        await expect(page.locator('se-customer-selector')).toHaveAttribute('data-state', 'results');
     });
 
     test('selecting an option by click emits customer:selected', async ({ page }) => {
@@ -378,7 +366,7 @@ test.describe('<vui-customer-selector>', () => {
         await mount(page);
 
         const result = await page.evaluate(() => {
-            const selector = document.querySelector('vui-customer-selector');
+            const selector = document.querySelector('se-customer-selector');
             /** @type {unknown[]} */
             const heard = [];
             document.addEventListener('customer:cleared', event => heard.push(event.detail));
@@ -408,7 +396,7 @@ test.describe('<vui-customer-selector>', () => {
             let count = 0;
             document.addEventListener('customer:selected', () => (count += 1));
 
-            document.querySelector('vui-customer-selector').selected = {
+            document.querySelector('se-customer-selector').selected = {
                 id: '1',
                 name: 'Ada Lovelace',
             };
@@ -426,13 +414,13 @@ test.describe('<vui-customer-selector>', () => {
     }) => {
         const value = await page.evaluate(async () => {
             document.getElementById('root').innerHTML =
-                '<vui-customer-selector id="s" endpoint="/api/customers/search"></vui-customer-selector>';
+                '<se-customer-selector id="s" endpoint="/api/customers/search"></se-customer-selector>';
 
             const element = document.getElementById('s');
             element.selected = { id: '9', name: 'Katherine Johnson' };
 
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
 
             return element.querySelector('input').value;
         });
@@ -444,7 +432,7 @@ test.describe('<vui-customer-selector>', () => {
         const result = await page.evaluate(async () => {
             await import('/resources/js/components/customer/CustomerSelector.js');
 
-            const element = document.createElement('vui-customer-selector');
+            const element = document.createElement('se-customer-selector');
             element.setAttribute('debounce', '0');
 
             /** @type {string[]} */
@@ -495,9 +483,9 @@ test.describe('<vui-customer-selector>', () => {
 
             return {
                 xss: window.__xss ?? false,
-                images: document.querySelectorAll('vui-customer-selector img').length,
-                scripts: document.querySelectorAll('vui-customer-selector script').length,
-                bold: document.querySelectorAll('vui-customer-selector b').length,
+                images: document.querySelectorAll('se-customer-selector img').length,
+                scripts: document.querySelectorAll('se-customer-selector script').length,
+                bold: document.querySelectorAll('se-customer-selector b').length,
                 firstText: options[0].textContent,
             };
         });
@@ -513,7 +501,7 @@ test.describe('<vui-customer-selector>', () => {
         await mount(page);
 
         const result = await page.evaluate(() => {
-            document.querySelector('vui-customer-selector').selected = {
+            document.querySelector('se-customer-selector').selected = {
                 id: '1',
                 name: '<img src=x onerror="window.__xss = true">',
             };
@@ -535,9 +523,7 @@ test.describe('<vui-customer-selector>', () => {
         await page.locator('input').fill('ada');
         await expect(page.locator('[role="option"]')).toHaveCount(3);
 
-        await page.evaluate(
-            () => (document.querySelector('vui-customer-selector').disabled = true),
-        );
+        await page.evaluate(() => (document.querySelector('se-customer-selector').disabled = true));
 
         await expect(page.locator('input')).toBeDisabled();
         await expect(page.locator('[role="listbox"]')).toBeHidden();
@@ -551,7 +537,7 @@ test.describe('<vui-customer-selector>', () => {
 
         const result = await page.evaluate(async () => {
             const root = document.getElementById('root');
-            const selector = root.querySelector('vui-customer-selector');
+            const selector = root.querySelector('se-customer-selector');
 
             const pending = selector.search('ada');
             selector.remove();
@@ -585,7 +571,7 @@ test.describe('<vui-customer-selector>', () => {
 
             try {
                 document.getElementById('root').innerHTML =
-                    '<vui-customer-selector></vui-customer-selector>';
+                    '<se-customer-selector></se-customer-selector>';
 
                 return null;
             } catch (error) {
@@ -603,7 +589,7 @@ test.describe('<vui-customer-selector>', () => {
         await mount(page);
 
         await page.evaluate(() => {
-            document.querySelector('vui-customer-selector').labels = {
+            document.querySelector('se-customer-selector').labels = {
                 empty: 'Müşteri bulunamadı.',
                 loading: 'Aranıyor…',
             };
@@ -630,7 +616,7 @@ test.describe('<vui-customer-selector>', () => {
 
         await page.evaluate(() => {
             const root = document.getElementById('root');
-            const selector = root.querySelector('vui-customer-selector');
+            const selector = root.querySelector('se-customer-selector');
             selector.remove();
             root.append(selector);
         });

@@ -4,8 +4,8 @@ import { define } from '../../resources/js/core/register.js';
 /**
  * A two-state switch.
  *
- * @element vui-toggle
- * @fires vui-toggle#toggle:changed
+ * @element se-toggle
+ * @fires se-toggle#toggle:changed
  */
 export class Toggle extends Component {
     static properties = Object.freeze(['on']);
@@ -98,4 +98,4 @@ export class Toggle extends Component {
     }
 }
 
-define('vui-toggle', Toggle);
+define('se-toggle', Toggle);

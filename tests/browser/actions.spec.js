@@ -43,8 +43,8 @@ const SETUP = async () => {
         }
     }
 
-    define('vui-probe-outer', Outer);
-    define('vui-probe-inner', Inner);
+    define('se-probe-outer', Outer);
+    define('se-probe-inner', Inner);
 };
 
 test('one delegated listener serves markup replaced after binding', async ({ page }) => {
@@ -52,7 +52,7 @@ test('one delegated listener serves markup replaced after binding', async ({ pag
 
     const log = await page.evaluate(() => {
         const root = document.getElementById('root');
-        root.innerHTML = '<vui-probe-outer></vui-probe-outer>';
+        root.innerHTML = '<se-probe-outer></se-probe-outer>';
 
         const outer = root.firstElementChild;
         outer.querySelector('[data-panel]').innerHTML =
@@ -76,11 +76,11 @@ test('an action inside a nested custom element does not reach the parent', async
 
     const log = await page.evaluate(() => {
         const root = document.getElementById('root');
-        root.innerHTML = '<vui-probe-outer></vui-probe-outer>';
+        root.innerHTML = '<se-probe-outer></se-probe-outer>';
 
-        const outer = root.querySelector('vui-probe-outer');
+        const outer = root.querySelector('se-probe-outer');
         outer.querySelector('[data-panel]').innerHTML =
-            '<vui-probe-inner><button type="button" data-action="inner-go">Go</button></vui-probe-inner>';
+            '<se-probe-inner><button type="button" data-action="inner-go">Go</button></se-probe-inner>';
 
         outer.querySelector('[data-action="inner-go"]').click();
         outer.querySelector('[data-action="outer-save"]').click();
@@ -96,9 +96,9 @@ test('the trigger closest to the click wins', async ({ page }) => {
 
     const log = await page.evaluate(() => {
         const root = document.getElementById('root');
-        root.innerHTML = '<vui-probe-outer></vui-probe-outer>';
+        root.innerHTML = '<se-probe-outer></se-probe-outer>';
 
-        const outer = root.querySelector('vui-probe-outer');
+        const outer = root.querySelector('se-probe-outer');
         outer.querySelector('[data-panel]').innerHTML = `
             <div data-action="wrapper" data-marker="wrapper">
                 <button type="button" data-action="child" data-marker="child">
@@ -120,9 +120,9 @@ test('delegation is rebuilt cleanly across a reconnect', async ({ page }) => {
 
     const log = await page.evaluate(() => {
         const root = document.getElementById('root');
-        root.innerHTML = '<vui-probe-outer></vui-probe-outer>';
+        root.innerHTML = '<se-probe-outer></se-probe-outer>';
 
-        const outer = root.querySelector('vui-probe-outer');
+        const outer = root.querySelector('se-probe-outer');
         outer.querySelector('[data-action="outer-save"]').click();
 
         outer.remove();
@@ -140,9 +140,9 @@ test('an empty data-action value is ignored', async ({ page }) => {
 
     const log = await page.evaluate(() => {
         const root = document.getElementById('root');
-        root.innerHTML = '<vui-probe-outer></vui-probe-outer>';
+        root.innerHTML = '<se-probe-outer></se-probe-outer>';
 
-        const outer = root.querySelector('vui-probe-outer');
+        const outer = root.querySelector('se-probe-outer');
         outer.querySelector('[data-panel]').innerHTML =
             '<button type="button" data-action="">Nothing</button>';
         outer.querySelector('[data-panel] button').click();

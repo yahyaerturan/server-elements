@@ -1,15 +1,39 @@
 {
-  "name": "@vayes/ui-core",
-  "version": "1.4.0",
+  "name": "@server-elements/core",
+  "version": "2.0.0",
   "description": "A small, standards-first component layer for server-rendered CodeIgniter 4 applications. Zero runtime dependencies.",
-  "type": "module",
+  "keywords": [
+    "custom-elements",
+    "web-components",
+    "codeigniter",
+    "codeigniter4",
+    "ci4",
+    "server-rendered",
+    "progressive-enhancement",
+    "zero-dependencies",
+    "no-build",
+    "esm",
+    "accessibility"
+  ],
+  "homepage": "https://github.com/yahyaerturan/server-elements#readme",
+  "bugs": {
+    "url": "https://github.com/yahyaerturan/server-elements/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yahyaerturan/server-elements.git"
+  },
   "license": "MIT",
+  "author": "Yahya A. Erturan <root@yahyaerturan.com>",
+  "type": "module",
   "engines": {
     "node": ">=20"
   },
   "files": [
     "resources/js",
+    "resources/css",
     "docs",
+    "scripts/rename-to-server-elements.mjs",
     "README.md",
     "CHANGELOG.md"
   ],
@@ -19,6 +43,7 @@
     "./actions": "./resources/js/core/ActionRegistry.js",
     "./ci4": "./resources/js/ci4/index.js",
     "./components/*": "./resources/js/components/*",
+    "./server-elements.css": "./resources/css/server-elements.css",
     "./package.json": "./package.json"
   },
   "devDependencies": {

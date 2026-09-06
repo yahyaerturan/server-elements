@@ -49,62 +49,62 @@ function describe(results) {
 }
 
 test.describe('component accessibility', () => {
-    test('<vui-counter> has no violations', async ({ page }) => {
+    test('<se-counter> has no violations', async ({ page }) => {
         await page.evaluate(async () => {
-            document.getElementById('root').innerHTML = '<vui-counter value="3"></vui-counter>'; // safe-html: test fixture literal.
+            document.getElementById('root').innerHTML = '<se-counter value="3"></se-counter>'; // safe-html: test fixture literal.
             await import('/resources/js/components/common/Counter.js');
-            await customElements.whenDefined('vui-counter');
+            await customElements.whenDefined('se-counter');
         });
 
-        expect(describe(await audit(page, 'vui-counter'))).toEqual([]);
+        expect(describe(await audit(page, 'se-counter'))).toEqual([]);
     });
 
-    test('<vui-tabs> has no violations', async ({ page }) => {
+    test('<se-tabs> has no violations', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `
-                <vui-tabs>
+                <se-tabs>
                     <div role="tablist" aria-label="Sections">
                         <button id="t1" type="button" role="tab" aria-controls="p1">General</button>
                         <button id="t2" type="button" role="tab" aria-controls="p2">Billing</button>
                     </div>
                     <section id="p1" role="tabpanel">General</section>
                     <section id="p2" role="tabpanel">Billing</section>
-                </vui-tabs>`; // safe-html: test fixture literal.
+                </se-tabs>`; // safe-html: test fixture literal.
             await import('/resources/js/components/common/Tabs.js');
-            await customElements.whenDefined('vui-tabs');
+            await customElements.whenDefined('se-tabs');
         });
 
-        expect(describe(await audit(page, 'vui-tabs'))).toEqual([]);
+        expect(describe(await audit(page, 'se-tabs'))).toEqual([]);
     });
 
-    test('<vui-modal> has no violations while open', async ({ page }) => {
+    test('<se-modal> has no violations while open', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `
-                <vui-modal aria-labelledby="modal-title">
+                <se-modal aria-labelledby="modal-title">
                     <h2 id="modal-title">Edit customer</h2>
                     <p>Body copy.</p>
                     <button type="button" data-action="close">Close</button>
-                </vui-modal>`; // safe-html: test fixture literal.
+                </se-modal>`; // safe-html: test fixture literal.
             await import('/resources/js/components/common/Modal.js');
-            await customElements.whenDefined('vui-modal');
-            document.querySelector('vui-modal').open();
+            await customElements.whenDefined('se-modal');
+            document.querySelector('se-modal').open();
         });
 
-        expect(describe(await audit(page, 'vui-modal'))).toEqual([]);
+        expect(describe(await audit(page, 'se-modal'))).toEqual([]);
     });
 
-    test('<vui-customer-selector> has no violations when idle', async ({ page }) => {
+    test('<se-customer-selector> has no violations when idle', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `<label for="sel">Find a customer</label>
-                 <vui-customer-selector id="sel" endpoint="/api/x"></vui-customer-selector>`; // safe-html: test fixture literal.
+                 <se-customer-selector id="sel" endpoint="/api/x"></se-customer-selector>`; // safe-html: test fixture literal.
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
         });
 
-        expect(describe(await audit(page, 'vui-customer-selector'))).toEqual([]);
+        expect(describe(await audit(page, 'se-customer-selector'))).toEqual([]);
     });
 
-    test('<vui-customer-selector> has no violations with results open', async ({ page }) => {
+    test('<se-customer-selector> has no violations with results open', async ({ page }) => {
         await page.route('**/api/x*', route =>
             route.fulfill({
                 status: 200,
@@ -120,15 +120,15 @@ test.describe('component accessibility', () => {
 
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `<label for="sel">Find a customer</label>
-                 <vui-customer-selector id="sel" endpoint="/api/x" debounce="0"></vui-customer-selector>`; // safe-html: test fixture literal.
+                 <se-customer-selector id="sel" endpoint="/api/x" debounce="0"></se-customer-selector>`; // safe-html: test fixture literal.
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
         });
 
-        await page.fill('vui-customer-selector input', 'ada');
+        await page.fill('se-customer-selector input', 'ada');
         await expect(page.locator('[role="option"]')).toHaveCount(2);
 
-        expect(describe(await audit(page, 'vui-customer-selector'))).toEqual([]);
+        expect(describe(await audit(page, 'se-customer-selector'))).toEqual([]);
     });
 });
 
@@ -154,12 +154,12 @@ test.describe('accessible names', () => {
     test('the dialog is named by the host ARIA attributes', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `
-                <vui-modal id="a" aria-labelledby="a-title">
+                <se-modal id="a" aria-labelledby="a-title">
                     <h2 id="a-title">Named by reference</h2>
-                </vui-modal>
-                <vui-modal id="b" aria-label="Named directly"></vui-modal>`; // safe-html: test fixture literal.
+                </se-modal>
+                <se-modal id="b" aria-label="Named directly"></se-modal>`; // safe-html: test fixture literal.
             await import('/resources/js/components/common/Modal.js');
-            await customElements.whenDefined('vui-modal');
+            await customElements.whenDefined('se-modal');
             document.getElementById('a').open();
         });
 
@@ -179,17 +179,16 @@ test.describe('accessible names', () => {
 
     test('the dialog name follows a changed host attribute', async ({ page }) => {
         await page.evaluate(async () => {
-            document.getElementById('root').innerHTML =
-                '<vui-modal aria-label="Before"></vui-modal>'; // safe-html: test fixture literal.
+            document.getElementById('root').innerHTML = '<se-modal aria-label="Before"></se-modal>'; // safe-html: test fixture literal.
             await import('/resources/js/components/common/Modal.js');
-            await customElements.whenDefined('vui-modal');
-            document.querySelector('vui-modal').open();
+            await customElements.whenDefined('se-modal');
+            document.querySelector('se-modal').open();
         });
 
         await expect(page.getByRole('dialog', { name: 'Before' })).toHaveCount(1);
 
         await page.evaluate(() =>
-            document.querySelector('vui-modal').setAttribute('aria-label', 'After'),
+            document.querySelector('se-modal').setAttribute('aria-label', 'After'),
         );
 
         await expect(page.getByRole('dialog', { name: 'After' })).toHaveCount(1);
@@ -199,17 +198,17 @@ test.describe('accessible names', () => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `
                 <label for="s1">Via label for</label>
-                <vui-customer-selector id="s1" endpoint="/api/x"></vui-customer-selector>
+                <se-customer-selector id="s1" endpoint="/api/x"></se-customer-selector>
 
-                <vui-customer-selector id="s2" endpoint="/api/x" aria-label="Via aria-label"></vui-customer-selector>
+                <se-customer-selector id="s2" endpoint="/api/x" aria-label="Via aria-label"></se-customer-selector>
 
                 <h3 id="s3-ref">Via aria-labelledby</h3>
-                <vui-customer-selector id="s3" endpoint="/api/x" aria-labelledby="s3-ref"></vui-customer-selector>
+                <se-customer-selector id="s3" endpoint="/api/x" aria-labelledby="s3-ref"></se-customer-selector>
 
                 <label for="s4-input">Via native label for the input</label>
-                <vui-customer-selector id="s4" endpoint="/api/x"></vui-customer-selector>`; // safe-html: test fixture literal.
+                <se-customer-selector id="s4" endpoint="/api/x"></se-customer-selector>`; // safe-html: test fixture literal.
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
         });
 
         // `exact: true` matters here: Playwright matches accessible names by
@@ -228,9 +227,9 @@ test.describe('accessible names', () => {
     test('the internal input carries a stable id derived from the host id', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML =
-                '<vui-customer-selector id="customer-search" endpoint="/api/x"></vui-customer-selector>'; // safe-html: test fixture literal.
+                '<se-customer-selector id="customer-search" endpoint="/api/x"></se-customer-selector>'; // safe-html: test fixture literal.
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
         });
 
         await expect(page.locator('#customer-search input')).toHaveAttribute(
@@ -242,9 +241,9 @@ test.describe('accessible names', () => {
     test('the placeholder is never the accessible name', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML =
-                '<label for="s">Real name</label><vui-customer-selector id="s" endpoint="/api/x" placeholder="Type here"></vui-customer-selector>'; // safe-html: test fixture literal.
+                '<label for="s">Real name</label><se-customer-selector id="s" endpoint="/api/x" placeholder="Type here"></se-customer-selector>'; // safe-html: test fixture literal.
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
         });
 
         await expect(page.getByRole('combobox', { name: 'Real name', exact: true })).toHaveCount(1);
@@ -262,9 +261,9 @@ test.describe('accessible names', () => {
 
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML =
-                '<label for="s">Find a customer</label><vui-customer-selector id="s" endpoint="/api/x" debounce="0"></vui-customer-selector>'; // safe-html: test fixture literal.
+                '<label for="s">Find a customer</label><se-customer-selector id="s" endpoint="/api/x" debounce="0"></se-customer-selector>'; // safe-html: test fixture literal.
             await import('/resources/js/components/customer/CustomerSelector.js');
-            await customElements.whenDefined('vui-customer-selector');
+            await customElements.whenDefined('se-customer-selector');
         });
 
         await page.fill('#s input', 'ada');

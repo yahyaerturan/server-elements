@@ -72,8 +72,8 @@ test.describe('content security policy', () => {
 
         await page.goto('/');
         await page.click('#open-modal');
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
-        await page.click('vui-modal [data-action="close"]');
+        await expect(page.locator('se-modal dialog')).toBeVisible();
+        await page.click('se-modal [data-action="close"]');
 
         violations.push(...(await page.evaluate(() => window.__cspViolations)));
 
@@ -84,7 +84,7 @@ test.describe('content security policy', () => {
 test.describe('JSON endpoints', () => {
     test('the AJAX header reaches CodeIgniter and JSON round-trips', async ({ page }) => {
         const result = await page.evaluate(async () => {
-            const payload = await window.VayesApp.http.json('/api/customers/search', {
+            const payload = await window.ServerElementsApp.http.json('/api/customers/search', {
                 query: { q: 'ada' },
             });
 
@@ -98,7 +98,9 @@ test.describe('JSON endpoints', () => {
         const [request] = await Promise.all([
             page.waitForRequest(url => url.url().includes('/api/customers/search')),
             page.evaluate(() =>
-                window.VayesApp.http.json('/api/customers/search', { query: { q: 'alan' } }),
+                window.ServerElementsApp.http.json('/api/customers/search', {
+                    query: { q: 'alan' },
+                }),
             ),
         ]);
 
@@ -108,7 +110,7 @@ test.describe('JSON endpoints', () => {
     test('the response request id is retained on HttpError', async ({ page }) => {
         const result = await page.evaluate(async () => {
             try {
-                await window.VayesApp.http.json('/api/customers/999999/archive', {
+                await window.ServerElementsApp.http.json('/api/customers/999999/archive', {
                     method: 'POST',
                 });
 
@@ -131,9 +133,12 @@ test.describe('JSON endpoints', () => {
 
     test('a client-supplied request id is echoed back for correlation', async ({ page }) => {
         const requestId = await page.evaluate(async () => {
-            const response = await window.VayesApp.http.get('/api/customers/search?q=ada', {
-                headers: { 'X-Request-Id': 'client-generated-id' },
-            });
+            const response = await window.ServerElementsApp.http.get(
+                '/api/customers/search?q=ada',
+                {
+                    headers: { 'X-Request-Id': 'client-generated-id' },
+                },
+            );
 
             return response.headers.get('X-Request-Id');
         });
@@ -159,7 +164,7 @@ test.describe('CSRF contract', () => {
 
     test('the configured provider makes an unsafe request succeed', async ({ page }) => {
         const result = await page.evaluate(async () => {
-            const response = await window.VayesApp.http.post(
+            const response = await window.ServerElementsApp.http.post(
                 '/api/customers',
                 { name: 'First Write', email: `first-${Date.now()}@example.test` },
                 { json: true },
@@ -176,7 +181,7 @@ test.describe('CSRF contract', () => {
     // regeneration if enabled".
     test('consecutive unsafe requests survive token rotation', async ({ page }) => {
         const result = await page.evaluate(async () => {
-            const { http, csrf } = window.VayesApp;
+            const { http, csrf } = window.ServerElementsApp;
             const tokens = [csrf.token];
             const statuses = [];
 
@@ -205,7 +210,7 @@ test.describe('CSRF contract', () => {
 
     test('a stale token is rejected once the server has rotated', async ({ page }) => {
         const result = await page.evaluate(async () => {
-            const { http, csrf } = window.VayesApp;
+            const { http, csrf } = window.ServerElementsApp;
             const stale = csrf.token;
 
             await http.post(
@@ -238,7 +243,7 @@ test.describe('CSRF contract', () => {
                     email: `form-${Date.now()}@example.test`,
                 });
 
-                const response = await window.VayesApp.http.post('/api/customers', body);
+                const response = await window.ServerElementsApp.http.post('/api/customers', body);
 
                 return response.status;
             }),
@@ -253,7 +258,7 @@ test.describe('server-authoritative validation', () => {
     test('invalid input returns 422 with per-field errors', async ({ page }) => {
         const result = await page.evaluate(async () => {
             try {
-                await window.VayesApp.http.post(
+                await window.ServerElementsApp.http.post(
                     '/api/customers',
                     { name: 'x', email: 'not-an-email' },
                     { json: true },
@@ -294,7 +299,7 @@ test.describe('server-authoritative validation', () => {
         await expect(page.locator('#form-status')).toHaveText(
             'Please correct the highlighted fields.',
         );
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await expect(page.locator('se-modal dialog')).toBeVisible();
     });
 
     test('a valid submission closes the dialog and reports success', async ({ page }) => {
@@ -304,7 +309,7 @@ test.describe('server-authoritative validation', () => {
         await page.click('#submit-customer');
 
         await expect(page.locator('#form-status')).toContainText('Created Valid Person.');
-        await expect(page.locator('vui-modal dialog')).toBeHidden();
+        await expect(page.locator('se-modal dialog')).toBeHidden();
     });
 });
 
@@ -317,7 +322,7 @@ test.describe('authorisation', () => {
             document.body.dataset.role = 'admin';
 
             try {
-                await window.VayesApp.http.post('/api/customers/1/archive', null, {});
+                await window.ServerElementsApp.http.post('/api/customers/1/archive', null, {});
 
                 return { status: 200 };
             } catch (error) {
@@ -330,9 +335,9 @@ test.describe('authorisation', () => {
 
     test('the same action succeeds once the server grants the role', async ({ page }) => {
         const result = await page.evaluate(async () => {
-            await window.VayesApp.http.json('/demo/login?role=admin');
+            await window.ServerElementsApp.http.json('/demo/login?role=admin');
 
-            const response = await window.VayesApp.http.post('/api/customers/2/archive');
+            const response = await window.ServerElementsApp.http.post('/api/customers/2/archive');
 
             return { status: response.status, body: await response.json() };
         });
@@ -349,7 +354,7 @@ test.describe('HTML fragments', () => {
         await expect(page.locator('#fragment-target table')).toBeVisible();
 
         // Custom elements inside the fragment initialised with no init pass.
-        const counters = page.locator('#fragment-target vui-counter');
+        const counters = page.locator('#fragment-target se-counter');
         await expect(counters.first()).toBeVisible();
         await expect(counters.first().locator('[data-value]')).toHaveText('0');
 
@@ -375,7 +380,9 @@ test.describe('HTML fragments', () => {
     });
 
     test('the fragment carries no script and none executes', async ({ page }) => {
-        const html = await page.evaluate(() => window.VayesApp.http.html('/customers/table'));
+        const html = await page.evaluate(() =>
+            window.ServerElementsApp.http.html('/customers/table'),
+        );
 
         expect(html).not.toContain('<script');
 

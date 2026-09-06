@@ -1,6 +1,6 @@
 # AI Agent Implementation Rules
 
-This file is authoritative for AI coding agents implementing Vayes UI Core.
+This file is authoritative for AI coding agents implementing Server Elements.
 
 ## 1. Mission
 

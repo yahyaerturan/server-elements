@@ -2,11 +2,11 @@
 
 The first implementation should include a small set of reference components chosen to prove the architecture, not to create a full design system.
 
-## R1. `<vui-counter>` — lifecycle/event smoke test
+## R1. `<se-counter>` — lifecycle/event smoke test
 
 Proves local state, incremental DOM updates, `data-action` delegation, emitted events and reconnect safety.
 
-## R2. `<vui-tabs>` — server-rendered enhancement
+## R2. `<se-tabs>` — server-rendered enhancement
 
 Requirements:
 
@@ -17,7 +17,7 @@ Requirements:
 - emits `tab:changed`;
 - works when inserted dynamically.
 
-## R3. `<vui-modal>` — client-owned UI and global interactions
+## R3. `<se-modal>` — client-owned UI and global interactions
 
 Requirements:
 
@@ -29,7 +29,7 @@ Requirements:
 - lifecycle-clean document listeners;
 - evaluate native `<dialog>` before recreating dialog semantics.
 
-## R4. `<vui-customer-selector>` — async component
+## R4. `<se-customer-selector>` — async component
 
 Requirements:
 

@@ -13,11 +13,11 @@ Every component should document one of these primary modes.
 The server owns initial markup. The component adds behavior.
 
 ```html
-<vui-tabs>
+<se-tabs>
     <button role="tab" ...>General</button>
     <button role="tab" ...>Billing</button>
     ...
-</vui-tabs>
+</se-tabs>
 ```
 
 `render()` is normally a no-op. The component queries existing children and attaches behavior.
@@ -27,7 +27,7 @@ The server owns initial markup. The component adds behavior.
 The element starts empty or has a loading fallback. The component creates its internal markup once.
 
 ```html
-<vui-modal></vui-modal>
+<se-modal></se-modal>
 ```
 
 The component can render on first mount if no owned markup exists.
@@ -82,7 +82,7 @@ this.addEventListener('click', event => {
 A nested custom element can contain its own action markup. Parent components must avoid stealing actions from nested component boundaries. Recommended guard:
 
 ```js
-const owner = trigger.closest('vui-parent-component');
+const owner = trigger.closest('se-parent-component');
 if (owner !== this) return;
 ```
 
@@ -101,7 +101,7 @@ Template literals are acceptable for static/trusted component structure:
 
 ```js
 this.innerHTML = `
-    <div class="vui-modal__panel" role="dialog">
+    <div class="se-modal__panel" role="dialog">
         <button data-action="close" type="button">Close</button>
         <div data-content></div>
     </div>

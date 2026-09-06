@@ -1,5 +1,5 @@
 {
-  "name": "Vayes UI Core",
+  "name": "Server Elements",
   "status": "implementation-specification",
   "architecture": "Native Custom Elements + DOM Events + EventTarget + Fetch + CodeIgniter 4",
   "runtimeDependencies": [],

@@ -1,11 +1,11 @@
-# Vayes UI Core — Master Specification
+# Server Elements — Master Specification
 
 
 ---
 
 <!-- SOURCE: README.md -->
 
-# Vayes UI Core — Native Component Architecture Specification
+# Server Elements — Native Component Architecture Specification
 
 **Status:** Implementation specification  
 **Audience:** AI coding agents, lead developers, reviewers, maintainers  
@@ -13,7 +13,7 @@
 **Frontend runtime:** Browser-native JavaScript only  
 **Runtime framework dependencies:** **None**
 
-Vayes UI Core is a deliberately small frontend component layer for server-oriented web applications. It provides reusable/configurable UI components, explicit lifecycle management, native component events, an optional application event bus, controlled HTTP/AJAX integration, and support for both server-rendered and client-rendered components.
+Server Elements is a deliberately small frontend component layer for server-oriented web applications. It provides reusable/configurable UI components, explicit lifecycle management, native component events, an optional application event bus, controlled HTTP/AJAX integration, and support for both server-rendered and client-rendered components.
 
 It is **not** a React/Vue/Svelte replacement and must never evolve into one. The browser is the platform. The library exists only to standardize the few patterns that browsers expose at a lower level than we want to repeat throughout application code.
 
@@ -80,7 +80,7 @@ The core should remain small enough that a competent developer can understand th
 
 # AI Agent Implementation Rules
 
-This file is authoritative for AI coding agents implementing Vayes UI Core.
+This file is authoritative for AI coding agents implementing Server Elements.
 
 ## 1. Mission
 
@@ -220,7 +220,7 @@ Traditional CodeIgniter applications often begin with server-rendered PHP views 
 
 The alternative is often to introduce a full SPA framework. That solves componentization, but also transfers large responsibilities to the frontend: routing, application state, API contracts, duplicate validation, client data synchronization, build conventions, framework lifecycle and framework-specific testing.
 
-Vayes UI Core occupies the narrow space between those extremes.
+Server Elements occupies the narrow space between those extremes.
 
 ## Goals
 
@@ -231,10 +231,10 @@ A reusable UI capability is represented by a native Custom Element or, only wher
 Example:
 
 ```html
-<vui-customer-selector
+<se-customer-selector
     endpoint="/customers/search"
     min-query="2"
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 ### G2. Explicit configuration
@@ -274,7 +274,7 @@ The architecture should resist ecosystem churn. Browser standards evolve more sl
 
 ## Non-goals
 
-Vayes UI Core is not intended to provide:
+Server Elements is not intended to provide:
 
 - client-side application routing;
 - server-side rendering of a JavaScript application;
@@ -516,8 +516,8 @@ import './components/customer/CustomerSelector.js';
 When the module defining a custom element is evaluated:
 
 ```js
-if (!customElements.get('vui-customer-selector')) {
-    customElements.define('vui-customer-selector', CustomerSelector);
+if (!customElements.get('se-customer-selector')) {
+    customElements.define('se-customer-selector', CustomerSelector);
 }
 ```
 
@@ -528,10 +528,10 @@ No DOM-ready initialization loop is required for Custom Elements. Existing match
 ### Server-first enhancement
 
 ```html
-<vui-customer-card customer-id="...">
+<se-customer-card customer-id="...">
     <h3>Server rendered name</h3>
     <button data-action="edit">Edit</button>
-</vui-customer-card>
+</se-customer-card>
 ```
 
 JS attaches behavior while preserving meaningful server markup.
@@ -539,7 +539,7 @@ JS attaches behavior while preserving meaningful server markup.
 ### Client-owned markup
 
 ```html
-<vui-modal></vui-modal>
+<se-modal></se-modal>
 ```
 
 The component creates its internal light DOM on first connection.
@@ -547,7 +547,7 @@ The component creates its internal light DOM on first connection.
 ### JavaScript-created component
 
 ```js
-const el = document.createElement('vui-customer-card');
+const el = document.createElement('se-customer-card');
 el.customer = customer;
 container.append(el);
 ```
@@ -557,7 +557,7 @@ container.append(el);
 CI4 returns:
 
 ```html
-<vui-customer-card customer-id="..."></vui-customer-card>
+<se-customer-card customer-id="..."></se-customer-card>
 ```
 
 The client inserts it. The native custom-element lifecycle performs initialization.
@@ -829,15 +829,15 @@ It must validate that the name follows Custom Element naming requirements and pr
 Default project prefix:
 
 ```text
-vui-
+se-
 ```
 
 Examples:
 
 ```text
-vui-modal
-vui-tabs
-vui-customer-selector
+se-modal
+se-tabs
+se-customer-selector
 ```
 
 Application-specific components may use a product prefix if desired, but one repository should not mix prefixes without an ADR.
@@ -907,7 +907,7 @@ disconnectedCallback()
 The same element instance may be reconnected:
 
 ```js
-const el = document.querySelector('vui-tabs');
+const el = document.querySelector('se-tabs');
 el.remove();
 container.append(el);
 ```
@@ -924,7 +924,7 @@ Expected:
 This case must be tested:
 
 ```html
-<vui-customer-card id="card"></vui-customer-card>
+<se-customer-card id="card"></se-customer-card>
 ```
 
 ```js
@@ -1035,12 +1035,12 @@ Suitable:
 Example:
 
 ```html
-<vui-customer-selector
+<se-customer-selector
     endpoint="/customers/search"
     min-query="2"
     limit="20"
     disabled
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 ### Properties
@@ -1088,7 +1088,7 @@ Invalid input must follow documented behavior:
 Follow HTML semantics:
 
 ```html
-<vui-widget disabled></vui-widget>
+<se-widget disabled></se-widget>
 ```
 
 Presence means true. Values such as `disabled="false"` still mean true and should be documented to avoid confusion.
@@ -1192,11 +1192,11 @@ Every component should document one of these primary modes.
 The server owns initial markup. The component adds behavior.
 
 ```html
-<vui-tabs>
+<se-tabs>
     <button role="tab" ...>General</button>
     <button role="tab" ...>Billing</button>
     ...
-</vui-tabs>
+</se-tabs>
 ```
 
 `render()` is normally a no-op. The component queries existing children and attaches behavior.
@@ -1206,7 +1206,7 @@ The server owns initial markup. The component adds behavior.
 The element starts empty or has a loading fallback. The component creates its internal markup once.
 
 ```html
-<vui-modal></vui-modal>
+<se-modal></se-modal>
 ```
 
 The component can render on first mount if no owned markup exists.
@@ -1261,7 +1261,7 @@ this.addEventListener('click', event => {
 A nested custom element can contain its own action markup. Parent components must avoid stealing actions from nested component boundaries. Recommended guard:
 
 ```js
-const owner = trigger.closest('vui-parent-component');
+const owner = trigger.closest('se-parent-component');
 if (owner !== this) return;
 ```
 
@@ -1280,7 +1280,7 @@ Template literals are acceptable for static/trusted component structure:
 
 ```js
 this.innerHTML = `
-    <div class="vui-modal__panel" role="dialog">
+    <div class="se-modal__panel" role="dialog">
         <button data-action="close" type="button">Close</button>
         <div data-content></div>
     </div>
@@ -1357,7 +1357,7 @@ CodeIgniter views and native JavaScript remain the template mechanisms.
 
 ## Two event scopes
 
-Vayes UI Core distinguishes:
+Server Elements distinguishes:
 
 1. **DOM component events** — the default.
 2. **Application/global events** — only when DOM hierarchy is irrelevant.
@@ -1500,9 +1500,9 @@ Do not implement arbitrary method invocation from HTML without an allowlist.
 If the product genuinely needs subscribers configurable from server markup, an optional `ActionRegistry` can support identifiers such as:
 
 ```html
-<vui-customer-selector
+<se-customer-selector
     data-on-selected="invoice.customerSelected"
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 The value resolves only against a pre-registered map:
@@ -1780,11 +1780,11 @@ Frontend components must not cause business logic to migrate into controllers or
 Plain view usage is preferred:
 
 ```php
-<vui-customer-card
+<se-customer-card
     customer-id="<?= esc($customer->uuid, 'attr') ?>"
 >
     <h3><?= esc($customer->name) ?></h3>
-</vui-customer-card>
+</se-customer-card>
 ```
 
 An optional helper for attribute serialization may be introduced only if it demonstrably prevents repetitive escaping/boolean handling. It must remain transparent and testable.
@@ -2403,11 +2403,11 @@ Generate production source maps according to deployment/privacy policy. If maps 
 
 The first implementation should include a small set of reference components chosen to prove the architecture, not to create a full design system.
 
-## R1. `<vui-counter>` — lifecycle/event smoke test
+## R1. `<se-counter>` — lifecycle/event smoke test
 
 Proves local state, incremental DOM updates, `data-action` delegation, emitted events and reconnect safety.
 
-## R2. `<vui-tabs>` — server-rendered enhancement
+## R2. `<se-tabs>` — server-rendered enhancement
 
 Requirements:
 
@@ -2418,7 +2418,7 @@ Requirements:
 - emits `tab:changed`;
 - works when inserted dynamically.
 
-## R3. `<vui-modal>` — client-owned UI and global interactions
+## R3. `<se-modal>` — client-owned UI and global interactions
 
 Requirements:
 
@@ -2430,7 +2430,7 @@ Requirements:
 - lifecycle-clean document listeners;
 - evaluate native `<dialog>` before recreating dialog semantics.
 
-## R4. `<vui-customer-selector>` — async component
+## R4. `<se-customer-selector>` — async component
 
 Requirements:
 
@@ -2564,10 +2564,10 @@ Exit gate: server HTML fragment containing components works with **zero** `initA
 
 Implement in order:
 
-1. `vui-counter`;
-2. `vui-tabs`;
-3. `vui-modal`;
-4. `vui-customer-selector`.
+1. `se-counter`;
+2. `se-tabs`;
+3. `se-modal`;
+4. `se-customer-selector`.
 
 The set must collectively prove server enhancement, client-owned rendering, local state, incremental updates, public events, cancelable events, global lifecycle listeners, async JSON, stale request cancellation, attributes, properties, pre-upgrade properties and dynamic insertion.
 
@@ -2796,7 +2796,7 @@ Example:
 
 ```js
 if (!this.endpoint) {
-    throw new Error('<vui-customer-selector> requires an endpoint attribute.');
+    throw new Error('<se-customer-selector> requires an endpoint attribute.');
 }
 ```
 
@@ -2842,9 +2842,9 @@ A component that wraps ordinary form controls should, where practical, keep real
 Example:
 
 ```html
-<vui-money-input>
+<se-money-input>
     <input type="text" name="amount" inputmode="decimal">
-</vui-money-input>
+</se-money-input>
 ```
 
 The custom element enhances formatting/behavior while the native field remains the submitted control.
@@ -2942,7 +2942,7 @@ For form-related components, test as applicable:
 
 ## Principle
 
-Vayes UI Core is not a CSS framework. Components must integrate predictably with Bootstrap, Tailwind, a custom design system, or application CSS.
+Server Elements is not a CSS framework. Components must integrate predictably with Bootstrap, Tailwind, a custom design system, or application CSS.
 
 ## Light DOM implications
 
@@ -2953,10 +2953,10 @@ Component markup should still avoid generic class names that create collisions.
 Recommended reusable-component class naming:
 
 ```text
-vui-modal
-vui-modal__panel
-vui-modal__header
-vui-modal--open
+se-modal
+se-modal__panel
+se-modal__header
+se-modal--open
 ```
 
 A strict BEM implementation is not required, but names should be clearly component-scoped.
@@ -2966,7 +2966,7 @@ A strict BEM implementation is not required, but names should be clearly compone
 Prefer semantic attributes for states that affect both behavior and styling:
 
 ```html
-<vui-customer-selector loading disabled aria-busy="true">
+<se-customer-selector loading disabled aria-busy="true">
 ```
 
 or internal state markers such as:
@@ -2982,8 +2982,8 @@ Do not duplicate the same state across many unrelated CSS classes and JS boolean
 Reusable components may expose CSS custom properties as a stable styling API when useful:
 
 ```css
-vui-modal {
-    --vui-modal-max-width: 48rem;
+se-modal {
+    --se-modal-max-width: 48rem;
 }
 ```
 
@@ -3311,7 +3311,7 @@ Custom Element lifecycle, upgrade, bubbling, focus and dynamic insertion contrac
 
 <!-- SOURCE: COMPONENT_SPEC_TEMPLATE.md -->
 
-# `<vui-component-name>` — Component Specification
+# `<se-component-name>` — Component Specification
 
 ## Purpose
 
@@ -3417,7 +3417,7 @@ Explicitly list behavior this component will not own.
 
 # Prompt for an AI Coding Agent
 
-Implement **Vayes UI Core** using the complete specification in this repository.
+Implement **Server Elements** using the complete specification in this repository.
 
 ## Mandatory preparation
 

@@ -1,7 +1,7 @@
 # Working in this repository
 
-The authoritative specification lives in `vayes-ui-core-spec-pack/`. Read
-`vayes-ui-core-spec-pack/AGENTS.md` before changing anything in
+The authoritative specification lives in `server-elements-spec-pack/`. Read
+`server-elements-spec-pack/AGENTS.md` before changing anything in
 `resources/js/`. This file only summarises what is enforced mechanically and
 where things live.
 
@@ -80,7 +80,7 @@ first.
 ## Definition of done for a component
 
 `docs/components/` contains one specification per component; follow
-`vayes-ui-core-spec-pack/COMPONENT_SPEC_TEMPLATE.md` for a new one. A component
+`server-elements-spec-pack/COMPONENT_SPEC_TEMPLATE.md` for a new one. A component
 is finished when its documented attributes, properties, methods and events all
 have tests, including the reconnect, property-before-upgrade, keyboard and
 XSS-sensitive cases.

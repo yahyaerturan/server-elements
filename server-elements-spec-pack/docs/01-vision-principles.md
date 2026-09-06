@@ -6,7 +6,7 @@ Traditional CodeIgniter applications often begin with server-rendered PHP views 
 
 The alternative is often to introduce a full SPA framework. That solves componentization, but also transfers large responsibilities to the frontend: routing, application state, API contracts, duplicate validation, client data synchronization, build conventions, framework lifecycle and framework-specific testing.
 
-Vayes UI Core occupies the narrow space between those extremes.
+Server Elements occupies the narrow space between those extremes.
 
 ## Goals
 
@@ -17,10 +17,10 @@ A reusable UI capability is represented by a native Custom Element or, only wher
 Example:
 
 ```html
-<vui-customer-selector
+<se-customer-selector
     endpoint="/customers/search"
     min-query="2"
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 ### G2. Explicit configuration
@@ -60,7 +60,7 @@ The architecture should resist ecosystem churn. Browser standards evolve more sl
 
 ## Non-goals
 
-Vayes UI Core is not intended to provide:
+Server Elements is not intended to provide:
 
 - client-side application routing;
 - server-side rendering of a JavaScript application;

@@ -4,7 +4,7 @@
  * `define()` refuses any name outside the allowed prefixes, which is the policy
  * that stops a repository accumulating three naming conventions by accident.
  * The kit is example code rather than library API, so it uses `kit-` to make
- * that obvious at a glance in the DOM: a `vui-` tag is the library, a `kit-`
+ * that obvious at a glance in the DOM: a `se-` tag is the library, a `kit-`
  * tag is something you copied and now own.
  *
  * Every kit component imports this module first. ES module imports are

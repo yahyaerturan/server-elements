@@ -77,13 +77,13 @@ export function createHttpObserver(options = {}) {
 
     return {
         onRequest(context) {
-            logger.debug('[vui:http] →', context.method, context.url.href, {
+            logger.debug('[se:http] →', context.method, context.url.href, {
                 headers: redactHeaders(context.headers, redact),
             });
         },
         onResponse(context) {
             logger.debug(
-                '[vui:http] ←',
+                '[se:http] ←',
                 context.response.status,
                 context.method,
                 context.url.href,
@@ -93,7 +93,7 @@ export function createHttpObserver(options = {}) {
         onError(context) {
             const error = /** @type {{ name?: string, message?: string }} */ (context.error);
             logger.warn(
-                '[vui:http] ✕',
+                '[se:http] ✕',
                 error?.name ?? 'Error',
                 context.method,
                 context.url.href,
@@ -129,7 +129,7 @@ export function observeComponentEvents(options = {}) {
             name,
             event => {
                 const custom = /** @type {CustomEvent} */ (event);
-                logger.debug('[vui:event]', name, {
+                logger.debug('[se:event]', name, {
                     target: /** @type {Element} */ (event.target)?.localName,
                     detail: custom.detail,
                 });

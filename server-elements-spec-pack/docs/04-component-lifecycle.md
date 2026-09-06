@@ -58,7 +58,7 @@ disconnectedCallback()
 The same element instance may be reconnected:
 
 ```js
-const el = document.querySelector('vui-tabs');
+const el = document.querySelector('se-tabs');
 el.remove();
 container.append(el);
 ```
@@ -75,7 +75,7 @@ Expected:
 This case must be tested:
 
 ```html
-<vui-customer-card id="card"></vui-customer-card>
+<se-customer-card id="card"></se-customer-card>
 ```
 
 ```js

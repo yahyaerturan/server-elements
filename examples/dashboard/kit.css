@@ -702,11 +702,11 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-  .\[vui\:event\] {
-    vui: event;
+  .\[se\:event\] {
+    se: event;
   }
-  .\[vui\:http\] {
-    vui: http;
+  .\[se\:http\] {
+    se: http;
   }
   @media (width >= 40rem) {
     .sm\:grid-cols-2 {
@@ -1199,7 +1199,7 @@
       color: var(--color-slate-300);
     }
   }
-  vui-modal .vui-modal__dialog {
+  se-modal .se-modal__dialog {
     margin: auto;
     width: 100%;
     max-width: var(--container-lg);
@@ -1228,7 +1228,7 @@
       color: var(--color-slate-100);
     }
   }
-  vui-tabs [role='tablist'] {
+  se-tabs [role='tablist'] {
     display: flex;
     gap: var(--spacing);
     border-bottom-style: var(--tw-border-style);
@@ -1238,7 +1238,7 @@
       border-color: var(--color-slate-700);
     }
   }
-  vui-tabs [role='tab'] {
+  se-tabs [role='tab'] {
     margin-bottom: -1px;
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
@@ -1266,7 +1266,7 @@
       }
     }
   }
-  vui-tabs [role='tab'][aria-selected='true'] {
+  se-tabs [role='tab'][aria-selected='true'] {
     border-color: var(--color-brand-600);
     color: var(--color-brand-700);
     &:where(.dark, .dark *) {
@@ -1276,12 +1276,12 @@
       color: var(--color-brand-400);
     }
   }
-  vui-counter {
+  se-counter {
     display: inline-flex;
     align-items: center;
     gap: calc(var(--spacing) * 2);
   }
-  vui-counter button {
+  se-counter button {
     display: flex;
     width: calc(var(--spacing) * 7);
     height: calc(var(--spacing) * 7);
@@ -1307,7 +1307,7 @@
       color: var(--color-slate-300);
     }
   }
-  vui-customer-selector .vui-customer-selector__list {
+  se-customer-selector .se-customer-selector__list {
     margin-top: var(--spacing);
     border-radius: var(--radius-lg);
     border-style: var(--tw-border-style);
@@ -1323,13 +1323,13 @@
       background-color: var(--color-slate-800);
     }
   }
-  vui-customer-selector .vui-customer-selector__option {
+  se-customer-selector .se-customer-selector__option {
     padding-inline: calc(var(--spacing) * 3);
     padding-block: calc(var(--spacing) * 2);
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
-  vui-customer-selector .vui-customer-selector__option.is-active {
+  se-customer-selector .se-customer-selector__option.is-active {
     background-color: var(--color-brand-50);
     &:where(.dark, .dark *) {
       background-color: var(--color-slate-700);

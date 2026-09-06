@@ -18,13 +18,13 @@ describe('CodeIgniterCsrfProvider', () => {
 
     test('honours a customised CI4 security configuration', () => {
         const provider = new CodeIgniterCsrfProvider({
-            headerName: 'X-Vayes-Csrf',
-            tokenName: 'vayes_csrf',
+            headerName: 'X-Server-Elements-Csrf',
+            tokenName: 'server_elements_csrf',
             token: 'abc',
         });
 
-        assert.deepEqual(provider.getRequestHeaders(CONTEXT), { 'X-Vayes-Csrf': 'abc' });
-        assert.deepEqual(provider.getRequestBodyFields(CONTEXT), { vayes_csrf: 'abc' });
+        assert.deepEqual(provider.getRequestHeaders(CONTEXT), { 'X-Server-Elements-Csrf': 'abc' });
+        assert.deepEqual(provider.getRequestBodyFields(CONTEXT), { server_elements_csrf: 'abc' });
     });
 
     test('contributes nothing when no token is known', () => {

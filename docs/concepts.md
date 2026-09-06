@@ -10,7 +10,7 @@ accumulate. Once these are clear the rest of the library is small.
 A reusable behaviour is a tag.
 
 ```html
-<vui-customer-selector endpoint="/api/customers/search"></vui-customer-selector>
+<se-customer-selector endpoint="/api/customers/search"></se-customer-selector>
 ```
 
 The browser owns the lifecycle. When the element enters the document it starts;
@@ -29,7 +29,7 @@ Registration and markup can happen in either order:
   any means, starts on insertion.
 
 This is why AJAX-inserted HTML needs no initialisation pass. The server returns
-a fragment containing `<vui-counter>`; you insert it; it works. There is no
+a fragment containing `<se-counter>`; you insert it; it works. There is no
 "re-init after AJAX" step because there was never an init step.
 
 That guarantee is load-bearing enough that the architecture forbids DOM
@@ -137,11 +137,11 @@ that follows.
 | anything an author writes in a view     | anything JavaScript hands over                |
 
 ```html
-<vui-customer-selector
+<se-customer-selector
   endpoint="/api/customers/search"
   min-query="2"
   disabled
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 ```js

@@ -105,10 +105,10 @@ Exit gate: server HTML fragment containing components works with **zero** `initA
 
 Implement in order:
 
-1. `vui-counter`;
-2. `vui-tabs`;
-3. `vui-modal`;
-4. `vui-customer-selector`.
+1. `se-counter`;
+2. `se-tabs`;
+3. `se-modal`;
+4. `se-customer-selector`.
 
 The set must collectively prove server enhancement, client-owned rendering, local state, incremental updates, public events, cancelable events, global lifecycle listeners, async JSON, stale request cancellation, attributes, properties, pre-upgrade properties and dynamic insertion.
 

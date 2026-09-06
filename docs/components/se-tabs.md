@@ -1,4 +1,4 @@
-# `<vui-tabs>` — Component Specification
+# `<se-tabs>` — Component Specification
 
 ## Purpose
 
@@ -17,14 +17,14 @@ survive untouched.
 ## Expected markup
 
 ```html
-<vui-tabs>
+<se-tabs>
   <div role="tablist" aria-label="Customer sections">
     <button id="tab-general" type="button" role="tab" aria-controls="panel-general">General</button>
     <button id="tab-billing" type="button" role="tab" aria-controls="panel-billing">Billing</button>
   </div>
   <section id="panel-general" role="tabpanel">…</section>
   <section id="panel-billing" role="tabpanel">…</section>
-</vui-tabs>
+</se-tabs>
 ```
 
 Each `[role="tab"]` must reference an existing panel through `aria-controls`. A
@@ -103,7 +103,7 @@ Direction: when the tablist resolves to `direction: rtl` the horizontal arrows m
 Focus: a roving `tabindex` keeps exactly one tab in the tab order; selection moves focus to the selected tab.
 ARIA: `aria-selected` on tabs, `hidden` on panels, `aria-labelledby` linking panel to tab when the tab has an id.
 
-Nested `<vui-tabs>` are isolated: an inner component's tabs never respond to the
+Nested `<se-tabs>` are isolated: an inner component's tabs never respond to the
 outer one's handlers.
 
 ## Security

@@ -42,6 +42,6 @@ export class Counter extends Component {
     }
 }
 
-if (!customElements.get('vui-counter')) {
-    customElements.define('vui-counter', Counter);
+if (!customElements.get('se-counter')) {
+    customElements.define('se-counter', Counter);
 }

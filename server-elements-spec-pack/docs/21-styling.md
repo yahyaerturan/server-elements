@@ -2,7 +2,7 @@
 
 ## Principle
 
-Vayes UI Core is not a CSS framework. Components must integrate predictably with Bootstrap, Tailwind, a custom design system, or application CSS.
+Server Elements is not a CSS framework. Components must integrate predictably with Bootstrap, Tailwind, a custom design system, or application CSS.
 
 ## Light DOM implications
 
@@ -13,10 +13,10 @@ Component markup should still avoid generic class names that create collisions.
 Recommended reusable-component class naming:
 
 ```text
-vui-modal
-vui-modal__panel
-vui-modal__header
-vui-modal--open
+se-modal
+se-modal__panel
+se-modal__header
+se-modal--open
 ```
 
 A strict BEM implementation is not required, but names should be clearly component-scoped.
@@ -26,7 +26,7 @@ A strict BEM implementation is not required, but names should be clearly compone
 Prefer semantic attributes for states that affect both behavior and styling:
 
 ```html
-<vui-customer-selector loading disabled aria-busy="true">
+<se-customer-selector loading disabled aria-busy="true">
 ```
 
 or internal state markers such as:
@@ -42,8 +42,8 @@ Do not duplicate the same state across many unrelated CSS classes and JS boolean
 Reusable components may expose CSS custom properties as a stable styling API when useful:
 
 ```css
-vui-modal {
-    --vui-modal-max-width: 48rem;
+se-modal {
+    --se-modal-max-width: 48rem;
 }
 ```
 

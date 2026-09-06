@@ -75,11 +75,11 @@ Frontend components must not cause business logic to migrate into controllers or
 Plain view usage is preferred:
 
 ```php
-<vui-customer-card
+<se-customer-card
     customer-id="<?= esc($customer->uuid, 'attr') ?>"
 >
     <h3><?= esc($customer->name) ?></h3>
-</vui-customer-card>
+</se-customer-card>
 ```
 
 An optional helper for attribute serialization may be introduced only if it demonstrably prevents repetitive escaping/boolean handling. It must remain transparent and testable.

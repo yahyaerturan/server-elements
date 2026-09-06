@@ -1,4 +1,4 @@
-# Vayes UI Core
+# Server Elements
 
 A deliberately small frontend component layer for server-rendered CodeIgniter 4
 applications.
@@ -25,7 +25,7 @@ Reading the DOM and the source should be enough to answer:
 ## Install
 
 ```bash
-npm install github:yahyaerturan/vayes-ui-core#v1.2.1
+npm install github:yahyaerturan/server-elements#v2.0.0
 ```
 
 Or copy `resources/js/` into your project — every import is relative, so it works
@@ -37,7 +37,7 @@ Full instructions, including CodeIgniter wiring and a verification checklist:
 ## Quick start
 
 ```js
-import { Component, define } from '@vayes/ui-core';
+import { Component, define } from '@server-elements/core';
 
 class Toggle extends Component {
   render() {
@@ -61,11 +61,11 @@ class Toggle extends Component {
   }
 }
 
-define('vui-toggle', Toggle);
+define('se-toggle', Toggle);
 ```
 
 ```html
-<vui-toggle></vui-toggle>
+<se-toggle></se-toggle>
 ```
 
 That element works whether it was in the initial HTML, created in JavaScript, or
@@ -92,12 +92,12 @@ before or after the markup existed. No initialisation pass runs, ever.
 
 **Reference components**
 
-| Element                   | Proves                                                                          |
-| ------------------------- | ------------------------------------------------------------------------------- |
-| `<vui-counter>`           | Local state, incremental updates, delegated actions, reconnect safety           |
-| `<vui-tabs>`              | Server-rendered enhancement, keyboard/ARIA, nested isolation                    |
-| `<vui-modal>`             | Client-owned markup, cancelable pre-event, native `<dialog>` focus behaviour    |
-| `<vui-customer-selector>` | Service injection, stale-request cancellation, async states, XSS-safe rendering |
+| Element                  | Proves                                                                          |
+| ------------------------ | ------------------------------------------------------------------------------- |
+| `<se-counter>`           | Local state, incremental updates, delegated actions, reconnect safety           |
+| `<se-tabs>`              | Server-rendered enhancement, keyboard/ARIA, nested isolation                    |
+| `<se-modal>`             | Client-owned markup, cancelable pre-event, native `<dialog>` focus behaviour    |
+| `<se-customer-selector>` | Service injection, stale-request cancellation, async states, XSS-safe rendering |
 
 ## Commands
 
@@ -141,6 +141,7 @@ Start at [docs/README.md](docs/README.md), or jump straight to what you need:
 | [docs/concepts.md](docs/concepts.md)                         | You want the mental model first — six ideas, and what each replaces         |
 | [docs/getting-started.md](docs/getting-started.md)           | You want a working, tested component in about ten minutes                   |
 | [docs/existing-project.md](docs/existing-project.md)         | **You already have a CodeIgniter app** and want to adopt this incrementally |
+| [docs/migration-v2.md](docs/migration-v2.md)                 | You are upgrading from Vayes UI Core v1 to Server Elements v2               |
 | [docs/authoring-components.md](docs/authoring-components.md) | You are writing your own component, start to finish                         |
 | [docs/recipes.md](docs/recipes.md)                           | You have a specific task: a form, a filtered list, a confirm dialog         |
 | [docs/troubleshooting.md](docs/troubleshooting.md)           | Something does not work                                                     |
@@ -149,7 +150,7 @@ Start at [docs/README.md](docs/README.md), or jump straight to what you need:
 | [docs/components/](docs/components/)                         | One full specification per reference component                              |
 | [docs/testing.md](docs/testing.md)                           | Test layers, and why three browser engines                                  |
 | [docs/acceptance-criteria.md](docs/acceptance-criteria.md)   | Every specification criterion mapped to its test                            |
-| `vayes-ui-core-spec-pack/`                                   | The authoritative architecture specification and ADRs                       |
+| `server-elements-spec-pack/`                                 | The authoritative architecture specification and ADRs                       |
 
 ## Browser support
 

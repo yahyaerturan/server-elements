@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Admin kit — Vayes UI Core</title>
+        <title>Admin kit — Server Elements</title>
         <link rel="stylesheet" href="./kit.css" />
         <script type="module" src="./js/dashboard.js"></script>
     </head>
@@ -17,7 +17,7 @@
                 <div>
                     <h1 class="text-2xl font-semibold tracking-tight">Customers</h1>
                     <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                        Admin patterns and components built on Vayes UI Core.
+                        Admin patterns and components built on Server Elements.
                     </p>
                 </div>
 
@@ -68,7 +68,7 @@
                     <div class="kit-card kit-card-body">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Seats</p>
                         <div class="mt-2 flex items-center gap-3">
-                            <vui-counter value="4" step="1"></vui-counter>
+                            <se-counter value="4" step="1"></se-counter>
                             <span class="text-sm text-slate-500 dark:text-slate-400">
                                 =
                                 <output id="seats-total" class="font-semibold tabular-nums"
@@ -284,14 +284,14 @@
             </section>
 
             <!-- ============================================================
-                 COMPONENT — vui-tabs + kit-async-button
+                 COMPONENT — se-tabs + kit-async-button
                  ============================================================ -->
             <section class="mb-8 grid gap-6 lg:grid-cols-2" aria-labelledby="panels-heading">
                 <h2 id="panels-heading" class="sr-only">Panels</h2>
 
                 <div class="kit-card">
                     <div class="kit-card-body">
-                        <vui-tabs>
+                        <se-tabs>
                             <div role="tablist" aria-label="Account sections">
                                 <button
                                     id="tab-general"
@@ -338,7 +338,7 @@
                                     never rebuilds it.
                                 </p>
                             </section>
-                        </vui-tabs>
+                        </se-tabs>
                     </div>
                 </div>
 
@@ -368,10 +368,10 @@
         </div>
 
         <!-- ============================================================
-             COMPONENT — vui-modal, kit-confirm-dialog, kit-toast-host
+             COMPONENT — se-modal, kit-confirm-dialog, kit-toast-host
              One of each per page.
              ============================================================ -->
-        <vui-modal id="invite-modal" aria-labelledby="invite-title">
+        <se-modal id="invite-modal" aria-labelledby="invite-title">
             <h2 id="invite-title" class="text-lg font-semibold">Invite a customer</h2>
             <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
                 They will receive an email with a link to complete their profile.
@@ -390,7 +390,7 @@
                     Send invitation
                 </button>
             </div>
-        </vui-modal>
+        </se-modal>
 
         <kit-confirm-dialog></kit-confirm-dialog>
         <kit-toast-host></kit-toast-host>

@@ -1,6 +1,6 @@
 # Acceptance criteria — status
 
-Every criterion from `vayes-ui-core-spec-pack/docs/17-acceptance-criteria.md`,
+Every criterion from `server-elements-spec-pack/docs/17-acceptance-criteria.md`,
 with the code and the test that backs it.
 
 Legend: **✔** met and covered by an automated test · **◑** met, verified by
@@ -35,7 +35,7 @@ review rather than a test.
 | Public attributes/properties/defaults documented                            | ✔      | `docs/components/*.md`                                                                                                                                |
 | HTML boolean semantics respected                                            | ✔      | `counter.spec.js` → “`disabled="false"` is still disabled”                                                                                            |
 | Rich data uses properties, not serialized attributes                        | ✔      | `customer-selector.spec.js` → `selected`, `service`, `labels`                                                                                         |
-| Server enhancement, client-owned, JS-created and AJAX-inserted demonstrated | ✔      | `<vui-tabs>`, `<vui-modal>`, `core-runtime.spec.js`, `fragments.spec.js`, and all four modes on the demo page                                         |
+| Server enhancement, client-owned, JS-created and AJAX-inserted demonstrated | ✔      | `<se-tabs>`, `<se-modal>`, `core-runtime.spec.js`, `fragments.spec.js`, and all four modes on the demo page                                           |
 | Local updates are incremental by default                                    | ✔      | `performance.spec.js` → “repeated local state updates touch one node”: after 1,000 updates the output node is the same object, so nothing was rebuilt |
 | AJAX fragment insertion does not execute scripts                            | ✔      | `fragments.spec.js` → “scripts in a fragment are removed and never execute”, “inline event handler attributes are stripped”                           |
 
@@ -79,7 +79,7 @@ review rather than a test.
 | Criterion                                   | Status | Evidence                                                                                                                                                                      |
 | ------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Tabs and modal keyboard tests pass          | ✔      | `tabs.spec.js` (arrow/Home/End, manual activation, mirrored arrows under `dir="rtl"`), `modal.spec.js` (Escape, focus trap)                                                   |
-| Modal focus behaviour documented and tested | ✔      | `docs/components/vui-modal.md`; `modal.spec.js` → focus into dialog and back to invoker                                                                                       |
+| Modal focus behaviour documented and tested | ✔      | `docs/components/se-modal.md`; `modal.spec.js` → focus into dialog and back to invoker                                                                                        |
 | Loading/disabled state accessible           | ✔      | `customer-selector.spec.js` → `aria-busy` and the `role="status"` live region; `counter.spec.js` → native `disabled`                                                          |
 | Native semantics preferred                  | ◑      | `<button>`, `<output>`, `<dialog>`, `<input>` throughout; ARIA only where the pattern requires it. Partly mechanised: `accessibility.spec.js` audits every component with axe |
 
@@ -125,7 +125,7 @@ architectural mistake, not a busy afternoon.
 Introducing axe produced zero violations across every component and every page
 state. Two real defects were present at that moment:
 
-1. **The modal's `<dialog>` was anonymous.** `aria-label` on `<vui-modal>` names
+1. **The modal's `<dialog>` was anonymous.** `aria-label` on `<se-modal>` names
    a host with a generic role, while the dialog role sits on the internal
    `<dialog>`. axe's `aria-dialog-name` rule matches `[role="dialog"]`; a native
    `<dialog>` has only an implicit role, so the rule never looked at it. The
@@ -175,7 +175,7 @@ if it were the specification.
    `data-action`, and each needs the same nested-custom-element ownership guard,
    which is the part that is easy to get wrong.
 
-4. **`<vui-modal>` exposes `isOpen` rather than `open` for state.** The
+4. **`<se-modal>` exposes `isOpen` rather than `open` for state.** The
    specification asks for explicit `open()`/`close()` methods, and a class
    cannot have both a method and a getter named `open`. The `open` _attribute_
    still reflects state and is the documented styling hook.

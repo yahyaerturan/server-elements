@@ -17,9 +17,9 @@ A component that wraps ordinary form controls should, where practical, keep real
 Example:
 
 ```html
-<vui-money-input>
+<se-money-input>
     <input type="text" name="amount" inputmode="decimal">
-</vui-money-input>
+</se-money-input>
 ```
 
 The custom element enhances formatting/behavior while the native field remains the submitted control.

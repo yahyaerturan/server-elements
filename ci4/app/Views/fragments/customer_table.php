@@ -29,7 +29,7 @@
                 <td><?= esc($customer['email']) ?></td>
                 <td>
                     <?php /* A custom element inside an AJAX fragment. */ ?>
-                    <vui-counter value="0" step="1"></vui-counter>
+                    <se-counter value="0" step="1"></se-counter>
                 </td>
             </tr>
         <?php endforeach ?>

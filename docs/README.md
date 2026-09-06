@@ -10,6 +10,7 @@ Start wherever matches what you are doing.
 | [concepts.md](concepts.md)                 | You want the mental model before touching code. Six ideas, and what each replaces. |
 | [getting-started.md](getting-started.md)   | You want a working component in a new or empty project in about ten minutes.       |
 | [existing-project.md](existing-project.md) | You have a CodeIgniter application already and want to adopt this incrementally.   |
+| [migration-v2.md](migration-v2.md)         | You are upgrading from v1 (Vayes UI Core) to v2 (Server Elements).                 |
 
 ## Building with it
 
@@ -32,7 +33,7 @@ Start wherever matches what you are doing.
 | [testing.md](testing.md)                                           | Test layers, what belongs in each, and why three browser engines. |
 | [acceptance-criteria.md](acceptance-criteria.md)                   | Every specification criterion mapped to the test that backs it.   |
 | [../AGENTS.md](../AGENTS.md)                                       | Rules for changing this repository.                               |
-| `../vayes-ui-core-spec-pack/`                                      | The authoritative architecture specification and ADRs.            |
+| `../server-elements-spec-pack/`                                    | The authoritative architecture specification and ADRs.            |
 
 ## The short version
 

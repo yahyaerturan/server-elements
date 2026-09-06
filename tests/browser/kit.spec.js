@@ -488,7 +488,7 @@ test.describe('showcase accessibility', () => {
             name: 'invite modal open',
             open: async page => {
                 await page.locator('#modal-demo').click();
-                await expect(page.locator('vui-modal dialog')).toBeVisible();
+                await expect(page.locator('se-modal dialog')).toBeVisible();
             },
         },
         {
@@ -527,11 +527,11 @@ test.describe('showcase accessibility', () => {
     test('dialog content inherits a readable colour in dark mode', async ({ page }) => {
         await page.locator('#theme-toggle').click();
         await page.locator('#modal-demo').click();
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await expect(page.locator('se-modal dialog')).toBeVisible();
 
         const measured = await page.evaluate(() => {
             const title = document.getElementById('invite-title');
-            const dialog = document.querySelector('vui-modal dialog');
+            const dialog = document.querySelector('se-modal dialog');
 
             return {
                 titleColor: getComputedStyle(title).color,

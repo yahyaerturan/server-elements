@@ -1,7 +1,7 @@
 import { test, expect } from './support/fixtures.js';
 
 const MARKUP = `
-<vui-tabs>
+<se-tabs>
     <div role="tablist" aria-label="Customer sections">
         <button id="tab-general" type="button" role="tab" aria-controls="panel-general">General</button>
         <button id="tab-billing" type="button" role="tab" aria-controls="panel-billing">Billing</button>
@@ -10,7 +10,7 @@ const MARKUP = `
     <section id="panel-general" role="tabpanel">General content</section>
     <section id="panel-billing" role="tabpanel">Billing content</section>
     <section id="panel-notes" role="tabpanel"><input id="notes-field"></section>
-</vui-tabs>`;
+</se-tabs>`;
 
 /**
  * Press a key and report whether the component consumed it.
@@ -53,17 +53,17 @@ async function mount(page, markup = MARKUP) {
     await page.evaluate(async html => {
         document.getElementById('root').innerHTML = html;
         await import('/resources/js/components/common/Tabs.js');
-        await customElements.whenDefined('vui-tabs');
+        await customElements.whenDefined('se-tabs');
     }, markup);
 }
 
-test.describe('<vui-tabs>', () => {
+test.describe('<se-tabs>', () => {
     test('enhances server markup without rebuilding it', async ({ page }) => {
         await page.evaluate(html => {
             document.getElementById('root').innerHTML = html;
         }, MARKUP);
 
-        const before = await page.locator('vui-tabs').innerHTML();
+        const before = await page.locator('se-tabs').innerHTML();
         await page.evaluate(() => import('/resources/js/components/common/Tabs.js'));
 
         // The original nodes must survive: only attributes change.
@@ -269,7 +269,7 @@ test.describe('<vui-tabs>', () => {
     test('manual activation moves focus without selecting until Enter or Space', async ({
         page,
     }) => {
-        await mount(page, MARKUP.replace('<vui-tabs>', '<vui-tabs activation="manual">'));
+        await mount(page, MARKUP.replace('<se-tabs>', '<se-tabs activation="manual">'));
 
         await page.locator('#tab-general').focus();
         await page.keyboard.press('ArrowRight');
@@ -286,12 +286,12 @@ test.describe('<vui-tabs>', () => {
     });
 
     test('selected-index configures the initial tab and stays in sync', async ({ page }) => {
-        await mount(page, MARKUP.replace('<vui-tabs>', '<vui-tabs selected-index="2">'));
+        await mount(page, MARKUP.replace('<se-tabs>', '<se-tabs selected-index="2">'));
 
         await expect(page.locator('#panel-notes')).toBeVisible();
 
         const result = await page.evaluate(() => {
-            const tabs = document.querySelector('vui-tabs');
+            const tabs = document.querySelector('se-tabs');
             tabs.setAttribute('selected-index', '1');
             const afterAttribute = tabs.selectedIndex;
 
@@ -307,7 +307,7 @@ test.describe('<vui-tabs>', () => {
         await mount(page);
 
         const index = await page.evaluate(() => {
-            const tabs = document.querySelector('vui-tabs');
+            const tabs = document.querySelector('se-tabs');
             tabs.selectedIndex = 99;
 
             return tabs.selectedIndex;
@@ -320,18 +320,18 @@ test.describe('<vui-tabs>', () => {
         const result = await page.evaluate(
             async html => {
                 document.getElementById('root').innerHTML = html;
-                const tabs = document.querySelector('vui-tabs');
+                const tabs = document.querySelector('se-tabs');
                 tabs.selectedIndex = 2;
 
                 await import('/resources/js/components/common/Tabs.js');
-                await customElements.whenDefined('vui-tabs');
+                await customElements.whenDefined('se-tabs');
 
                 return {
                     index: tabs.selectedIndex,
                     visible: document.getElementById('panel-notes').hidden === false,
                 };
             },
-            MARKUP.replace('<vui-tabs>', '<vui-tabs selected-index="1">'),
+            MARKUP.replace('<se-tabs>', '<se-tabs selected-index="1">'),
         );
 
         expect(result).toEqual({ index: 2, visible: true });
@@ -342,7 +342,7 @@ test.describe('<vui-tabs>', () => {
 
         const result = await page.evaluate(() => {
             const root = document.getElementById('root');
-            const tabs = root.querySelector('vui-tabs');
+            const tabs = root.querySelector('se-tabs');
 
             tabs.selectedIndex = 1;
 
@@ -363,26 +363,26 @@ test.describe('<vui-tabs>', () => {
     test('nested tab components do not steal each other keyboard events', async ({ page }) => {
         await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `
-                <vui-tabs id="outer">
+                <se-tabs id="outer">
                     <div role="tablist">
                         <button id="o1" type="button" role="tab" aria-controls="op1">Outer 1</button>
                         <button id="o2" type="button" role="tab" aria-controls="op2">Outer 2</button>
                     </div>
                     <section id="op1" role="tabpanel">
-                        <vui-tabs id="inner">
+                        <se-tabs id="inner">
                             <div role="tablist">
                                 <button id="i1" type="button" role="tab" aria-controls="ip1">Inner 1</button>
                                 <button id="i2" type="button" role="tab" aria-controls="ip2">Inner 2</button>
                             </div>
                             <section id="ip1" role="tabpanel">Inner one</section>
                             <section id="ip2" role="tabpanel">Inner two</section>
-                        </vui-tabs>
+                        </se-tabs>
                     </section>
                     <section id="op2" role="tabpanel">Outer two</section>
-                </vui-tabs>`;
+                </se-tabs>`;
 
             await import('/resources/js/components/common/Tabs.js');
-            await customElements.whenDefined('vui-tabs');
+            await customElements.whenDefined('se-tabs');
         });
 
         await page.locator('#i1').focus();
@@ -401,7 +401,7 @@ test.describe('<vui-tabs>', () => {
 
         const result = await page.evaluate(async () => {
             const { replaceFragment } = await import('/resources/js/core/fragments.js');
-            const tabs = document.querySelector('vui-tabs');
+            const tabs = document.querySelector('se-tabs');
 
             replaceFragment(
                 tabs,
@@ -430,16 +430,16 @@ test.describe('<vui-tabs>', () => {
 
         const message = await page.evaluate(async () => {
             document.getElementById('root').innerHTML = `
-                <vui-tabs>
+                <se-tabs>
                     <div role="tablist">
                         <button type="button" role="tab" aria-controls="nowhere">Broken</button>
                     </div>
-                </vui-tabs>`;
+                </se-tabs>`;
 
             await import('/resources/js/components/common/Tabs.js');
 
             try {
-                document.querySelector('vui-tabs').refresh();
+                document.querySelector('se-tabs').refresh();
 
                 return null;
             } catch (error) {

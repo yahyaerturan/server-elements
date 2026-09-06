@@ -1,5 +1,5 @@
 /**
- * @file Base class for Vayes UI Core custom elements.
+ * @file Base class for Server Elements custom elements.
  * @see docs/03-core-api.md
  * @see docs/04-component-lifecycle.md
  * @see docs/07-events-actions.md
@@ -48,7 +48,7 @@
  *         this.addEventListener('click', () => this.toggle(), { signal: this.signal });
  *     }
  * }
- * define('vui-toggle', Toggle);
+ * define('se-toggle', Toggle);
  */
 export class Component extends HTMLElement {
     /**

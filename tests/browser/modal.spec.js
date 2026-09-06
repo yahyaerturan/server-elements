@@ -3,28 +3,28 @@ import { test, expect } from './support/fixtures.js';
 const MARKUP = `
 <button id="opener" type="button">Open</button>
 <button id="other" type="button">Other</button>
-<vui-modal aria-label="Edit customer">
+<se-modal aria-label="Edit customer">
     <h2 id="title">Edit customer</h2>
     <input id="field" type="text">
     <button id="save" type="button">Save</button>
     <button id="cancel" type="button" data-action="close">Cancel</button>
-</vui-modal>`;
+</se-modal>`;
 
 /** @param {import('@playwright/test').Page} page */
 async function mount(page, markup = MARKUP) {
     await page.evaluate(async html => {
         document.getElementById('root').innerHTML = html;
         await import('/resources/js/components/common/Modal.js');
-        await customElements.whenDefined('vui-modal');
+        await customElements.whenDefined('se-modal');
     }, markup);
 }
 
-test.describe('<vui-modal>', () => {
+test.describe('<se-modal>', () => {
     test('wraps its light-DOM children in a native dialog', async ({ page }) => {
         await mount(page);
 
         const result = await page.evaluate(() => {
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
 
             return {
                 dialogs: modal.querySelectorAll('dialog').length,
@@ -44,7 +44,7 @@ test.describe('<vui-modal>', () => {
             const heard = [];
             document.addEventListener('modal:opened', event => heard.push(event.type));
 
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
             const opened = modal.open();
 
             return {
@@ -63,7 +63,7 @@ test.describe('<vui-modal>', () => {
             isOpen: true,
             secondCall: false,
         });
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await expect(page.locator('se-modal dialog')).toBeVisible();
     });
 
     test('close() emits a cancelable pre-event followed by modal:closed', async ({ page }) => {
@@ -79,7 +79,7 @@ test.describe('<vui-modal>', () => {
                 events.push(`closed:${e.detail.reason}`),
             );
 
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
             modal.open();
             modal.close();
 
@@ -87,14 +87,14 @@ test.describe('<vui-modal>', () => {
         });
 
         expect(heard).toEqual(['before:method', 'closed:method']);
-        await expect(page.locator('vui-modal dialog')).toBeHidden();
+        await expect(page.locator('se-modal dialog')).toBeHidden();
     });
 
     test('preventing modal:before-close keeps the dialog open', async ({ page }) => {
         await mount(page);
 
         const result = await page.evaluate(() => {
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
             let closedFired = false;
 
             document.addEventListener('modal:before-close', event => event.preventDefault());
@@ -107,7 +107,7 @@ test.describe('<vui-modal>', () => {
         });
 
         expect(result).toEqual({ returned: false, isOpen: true, closedFired: false });
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await expect(page.locator('se-modal dialog')).toBeVisible();
     });
 
     test('Escape closes through the cancelable contract', async ({ page }) => {
@@ -115,12 +115,12 @@ test.describe('<vui-modal>', () => {
         await page.evaluate(() => {
             window.__reasons = [];
             document.addEventListener('modal:closed', e => window.__reasons.push(e.detail.reason));
-            document.querySelector('vui-modal').open();
+            document.querySelector('se-modal').open();
         });
 
         await page.keyboard.press('Escape');
 
-        await expect(page.locator('vui-modal dialog')).toBeHidden();
+        await expect(page.locator('se-modal dialog')).toBeHidden();
         expect(await page.evaluate(() => window.__reasons)).toEqual(['escape']);
     });
 
@@ -128,23 +128,23 @@ test.describe('<vui-modal>', () => {
         await mount(page);
         await page.evaluate(() => {
             document.addEventListener('modal:before-close', event => event.preventDefault());
-            document.querySelector('vui-modal').open();
+            document.querySelector('se-modal').open();
         });
 
         await page.keyboard.press('Escape');
 
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await expect(page.locator('se-modal dialog')).toBeVisible();
     });
 
     test('no-dismiss disables Escape while method close still works', async ({ page }) => {
-        await mount(page, MARKUP.replace('<vui-modal ', '<vui-modal no-dismiss '));
-        await page.evaluate(() => document.querySelector('vui-modal').open());
+        await mount(page, MARKUP.replace('<se-modal ', '<se-modal no-dismiss '));
+        await page.evaluate(() => document.querySelector('se-modal').open());
 
         await page.keyboard.press('Escape');
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await expect(page.locator('se-modal dialog')).toBeVisible();
 
-        await page.evaluate(() => document.querySelector('vui-modal').close());
-        await expect(page.locator('vui-modal dialog')).toBeHidden();
+        await page.evaluate(() => document.querySelector('se-modal').close());
+        await expect(page.locator('se-modal dialog')).toBeHidden();
     });
 
     test('a data-action="close" control closes with reason "action"', async ({ page }) => {
@@ -152,7 +152,7 @@ test.describe('<vui-modal>', () => {
         await page.evaluate(() => {
             window.__reasons = [];
             document.addEventListener('modal:closed', e => window.__reasons.push(e.detail.reason));
-            document.querySelector('vui-modal').open();
+            document.querySelector('se-modal').open();
         });
 
         await page.locator('#cancel').click();
@@ -164,14 +164,14 @@ test.describe('<vui-modal>', () => {
         await mount(page);
 
         await page.locator('#opener').focus();
-        await page.evaluate(() => document.querySelector('vui-modal').open());
+        await page.evaluate(() => document.querySelector('se-modal').open());
 
         const focusedInside = await page.evaluate(() =>
-            document.querySelector('vui-modal dialog').contains(document.activeElement),
+            document.querySelector('se-modal dialog').contains(document.activeElement),
         );
         expect(focusedInside).toBe(true);
 
-        await page.evaluate(() => document.querySelector('vui-modal').close());
+        await page.evaluate(() => document.querySelector('se-modal').close());
         await expect(page.locator('#opener')).toBeFocused();
     });
 
@@ -180,7 +180,7 @@ test.describe('<vui-modal>', () => {
 
         await page.locator('#opener').focus();
         await page.evaluate(() => {
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
             modal.open({ invoker: document.getElementById('other') });
             modal.close();
         });
@@ -190,7 +190,7 @@ test.describe('<vui-modal>', () => {
 
     test('tabbing never reaches background content', async ({ page }) => {
         await mount(page);
-        await page.evaluate(() => document.querySelector('vui-modal').open());
+        await page.evaluate(() => document.querySelector('se-modal').open());
 
         /** @type {Array<{ id: string | null, inside: boolean }>} */
         const trail = [];
@@ -199,7 +199,7 @@ test.describe('<vui-modal>', () => {
             trail.push(
                 await page.evaluate(() => {
                     const active = document.activeElement;
-                    const dialog = document.querySelector('vui-modal dialog');
+                    const dialog = document.querySelector('se-modal dialog');
 
                     return { id: active?.id || null, inside: dialog.contains(active) };
                 }),
@@ -226,7 +226,7 @@ test.describe('<vui-modal>', () => {
 
     test('background content cannot be clicked while the dialog is open', async ({ page }) => {
         await mount(page);
-        await page.evaluate(() => document.querySelector('vui-modal').open());
+        await page.evaluate(() => document.querySelector('se-modal').open());
 
         // showModal() puts the dialog in the top layer behind a backdrop, so a
         // real user click on background content is physically blocked. This is
@@ -244,11 +244,11 @@ test.describe('<vui-modal>', () => {
     test('the open attribute drives the dialog declaratively', async ({ page }) => {
         await mount(page);
 
-        await page.evaluate(() => document.querySelector('vui-modal').setAttribute('open', ''));
-        await expect(page.locator('vui-modal dialog')).toBeVisible();
+        await page.evaluate(() => document.querySelector('se-modal').setAttribute('open', ''));
+        await expect(page.locator('se-modal dialog')).toBeVisible();
 
-        await page.evaluate(() => document.querySelector('vui-modal').removeAttribute('open'));
-        await expect(page.locator('vui-modal dialog')).toBeHidden();
+        await page.evaluate(() => document.querySelector('se-modal').removeAttribute('open'));
+        await expect(page.locator('se-modal dialog')).toBeHidden();
     });
 
     test('disconnecting closes the dialog and restores focus without emitting', async ({
@@ -258,7 +258,7 @@ test.describe('<vui-modal>', () => {
 
         const result = await page.evaluate(() => {
             const root = document.getElementById('root');
-            const modal = root.querySelector('vui-modal');
+            const modal = root.querySelector('se-modal');
             let closedEvents = 0;
 
             document.addEventListener('modal:closed', () => (closedEvents += 1));
@@ -283,7 +283,7 @@ test.describe('<vui-modal>', () => {
 
         const closeEvents = await page.evaluate(() => {
             const root = document.getElementById('root');
-            const modal = root.querySelector('vui-modal');
+            const modal = root.querySelector('se-modal');
 
             modal.remove();
             root.append(modal);
@@ -304,7 +304,7 @@ test.describe('<vui-modal>', () => {
         await mount(page);
 
         const message = await page.evaluate(() => {
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
             modal.remove();
 
             try {
@@ -323,7 +323,7 @@ test.describe('<vui-modal>', () => {
         await mount(page);
 
         const states = await page.evaluate(() => {
-            const modal = document.querySelector('vui-modal');
+            const modal = document.querySelector('se-modal');
             const first = (modal.toggle(), modal.isOpen);
             const second = (modal.toggle(), modal.isOpen);
             const forced = (modal.toggle(true), modal.isOpen);

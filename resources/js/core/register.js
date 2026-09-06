@@ -26,7 +26,7 @@ const RESERVED_NAMES = new Set([
 const NAME_PATTERN = /^[a-z][a-z0-9._]*-[a-z0-9._-]*$/;
 
 /** @type {string[]} */
-let allowedPrefixes = ['vui-'];
+let allowedPrefixes = ['se-'];
 
 /**
  * Replace the project prefix allowlist.
@@ -90,7 +90,7 @@ export function hasAllowedPrefix(name) {
  * registration is made idempotent here rather than at every call site.
  *
  * @template {CustomElementConstructor} T
- * @param {string} name Custom element tag name, e.g. `vui-modal`.
+ * @param {string} name Custom element tag name, e.g. `se-modal`.
  * @param {T} constructor
  * @param {ElementDefinitionOptions} [options]
  * @returns {T} The constructor, for convenient `export default define(...)`.
@@ -116,7 +116,7 @@ export function define(name, constructor, options = undefined) {
     if (existing) {
         if (existing !== constructor) {
             console.warn(
-                `[vayes-ui-core] "${name}" is already defined by a different constructor. ` +
+                `[server-elements] "${name}" is already defined by a different constructor. ` +
                     'The existing definition is kept.',
             );
         }

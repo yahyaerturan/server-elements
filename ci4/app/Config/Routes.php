@@ -7,7 +7,7 @@ namespace Config;
 use CodeIgniter\Router\RouteCollection;
 
 /**
- * Routes for the Vayes UI Core demo and integration-test application.
+ * Routes for the Server Elements demo and integration-test application.
  *
  * The set is deliberately small and mirrors docs/09-ci4-integration.md:
  * a page route, an HTML fragment route, JSON read routes, a protected write

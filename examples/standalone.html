@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vayes UI Core — standalone example</title>
-    <link rel="stylesheet" href="../resources/css/vayes-ui-core.css">
+    <title>Server Elements — standalone example</title>
+    <link rel="stylesheet" href="../resources/css/server-elements.css">
     <style>
         body { font-family: system-ui, sans-serif; margin: 0 auto; max-width: 44rem; padding: 2rem; line-height: 1.5; }
         section { border-top: 1px solid rgb(0 0 0 / 0.1); margin-block: 1.5rem; padding-block-start: 1rem; }
@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <h1>Vayes UI Core</h1>
+    <h1>Server Elements</h1>
     <p>
         No server, no build step, no dependencies — the components below are the
         library source loaded as native ES modules. Serve this directory with
@@ -27,29 +27,29 @@
         <h2>Server-rendered enhancement</h2>
         <p>The tabs below are plain HTML. The component adds ARIA state and keyboard support without rebuilding them.</p>
 
-        <vui-tabs>
+        <se-tabs>
             <div role="tablist" aria-label="Example sections">
                 <button id="tab-a" type="button" role="tab" aria-controls="panel-a">Counter</button>
                 <button id="tab-b" type="button" role="tab" aria-controls="panel-b">Dialog</button>
             </div>
 
             <section id="panel-a" role="tabpanel">
-                <vui-counter value="3" step="3"></vui-counter>
+                <se-counter value="3" step="3"></se-counter>
             </section>
 
             <section id="panel-b" role="tabpanel">
                 <button type="button" id="open">Open the dialog</button>
             </section>
-        </vui-tabs>
+        </se-tabs>
     </section>
 
     <section>
         <h2>Client-owned dialog</h2>
-        <vui-modal aria-labelledby="dialog-title">
+        <se-modal aria-labelledby="dialog-title">
             <h3 id="dialog-title">A native dialog</h3>
             <p>Escape, the backdrop and the button below all route through the cancelable <code>modal:before-close</code> event.</p>
             <button type="button" data-action="close">Close</button>
-        </vui-modal>
+        </se-modal>
     </section>
 
     <section>
@@ -64,7 +64,7 @@
         import '../resources/js/components/common/Modal.js';
 
         const log = document.getElementById('log');
-        const modal = document.querySelector('vui-modal');
+        const modal = document.querySelector('se-modal');
 
         document.getElementById('open').addEventListener('click', event => {
             modal.open({ invoker: event.currentTarget });

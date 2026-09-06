@@ -1,4 +1,4 @@
-# `<vui-modal>` — Component Specification
+# `<se-modal>` — Component Specification
 
 ## Purpose
 
@@ -74,8 +74,8 @@ native dialog rather than duplicated.
 ## DOM contract
 
 Server-owned markup: the modal content, provided as children.
-Component-owned markup: `<dialog class="vui-modal__dialog" data-vui-modal>` containing `<div class="vui-modal__content" data-content>`; children are moved into it on first render.
-Stable selectors: `dialog[data-vui-modal]`, `[data-content]`.
+Component-owned markup: `<dialog class="se-modal__dialog" data-se-modal>` containing `<div class="se-modal__content" data-content>`; children are moved into it on first render.
+Stable selectors: `dialog[data-se-modal]`, `[data-content]`.
 Focus-sensitive elements: everything inside the dialog. Content is moved once and never recreated.
 
 ## Internal actions
@@ -96,7 +96,7 @@ None. Submitting a form inside the modal is the application's concern; see
 Semantics: native `<dialog>` in modal mode.
 Keyboard: Escape closes unless `no-dismiss` or a prevented pre-event; Tab is trapped inside by the platform.
 Focus: `showModal()` moves focus into the dialog; closing returns it to the invoker when that element is still connected.
-ARIA: put `aria-label` or `aria-labelledby` on `<vui-modal>` itself; it is
+ARIA: put `aria-label` or `aria-labelledby` on `<se-modal>` itself; it is
 forwarded to the `<dialog>`. Changing the attribute later updates the name.
 
 ## Security

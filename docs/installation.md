@@ -30,22 +30,22 @@ Best when your project has no npm step, or commits its assets.
 ### 1. Copy
 
 ```bash
-# from a clone or a downloaded release of vayes-ui-core
-cp -R vayes-ui-core/resources/js  your-app/public/assets/vui/js
-cp -R vayes-ui-core/resources/css your-app/public/assets/vui/css
+# from a clone or a downloaded release of server-elements
+cp -R server-elements/resources/js  your-app/public/assets/se/js
+cp -R server-elements/resources/css your-app/public/assets/se/css
 ```
 
 You end up with:
 
 ```
-public/assets/vui/
+public/assets/se/
 ├── js/
 │   ├── core/          ← the runtime
 │   ├── ci4/           ← CodeIgniter adapter (delete if unused)
 │   ├── components/    ← reference components (keep what you use)
 │   └── services/
 └── css/
-    └── vayes-ui-core.css
+    └── server-elements.css
 ```
 
 This works because **every import in the shipped source is a relative path** —
@@ -60,14 +60,14 @@ appears.
 ```js
 // Importing a component module registers its element. That is the whole
 // wiring step — there is no init() to call.
-import '../vui/js/components/common/Modal.js';
-import '../vui/js/components/common/Tabs.js';
+import '../se/js/components/common/Modal.js';
+import '../se/js/components/common/Tabs.js';
 ```
 
 ### 3. Load it
 
 ```html
-<link rel="stylesheet" href="/assets/vui/css/vayes-ui-core.css" />
+<link rel="stylesheet" href="/assets/se/css/server-elements.css" />
 <script type="module" src="/assets/js/app.js"></script>
 ```
 
@@ -79,7 +79,7 @@ runs.
 Copies drift. Note which release you took:
 
 ```bash
-echo "vayes-ui-core v1.2.1" > public/assets/vui/VERSION
+echo "server-elements v2.0.0" > public/assets/se/VERSION
 ```
 
 ---
@@ -91,7 +91,7 @@ Best when your project already has a `package.json`.
 ### 1. Install
 
 ```bash
-npm install github:yahyaerturan/vayes-ui-core#v1.2.1
+npm install github:yahyaerturan/server-elements#v2.0.0
 ```
 
 Pin a tag. Tracking a branch means an unreviewed change can arrive with an
@@ -100,32 +100,37 @@ unrelated `npm install`.
 ### 2. Import
 
 ```js
-import { Component, define, HttpClient } from '@vayes/ui-core';
-import { createCodeIgniterClient } from '@vayes/ui-core/ci4';
-import '@vayes/ui-core/components/common/Modal.js';
+import { Component, define, HttpClient } from '@server-elements/core';
+import { createCodeIgniterClient } from '@server-elements/core/ci4';
+import '@server-elements/core/components/common/Modal.js';
 ```
 
 Available entry points:
 
-| Specifier                     | Contents                           |
-| ----------------------------- | ---------------------------------- |
-| `@vayes/ui-core`              | Core runtime                       |
-| `@vayes/ui-core/ci4`          | CodeIgniter adapter                |
-| `@vayes/ui-core/actions`      | Optional `ActionRegistry`          |
-| `@vayes/ui-core/components/*` | Reference components, individually |
+| Specifier                                   | Contents                           |
+| ------------------------------------------- | ---------------------------------- |
+| `@server-elements/core`                     | Core runtime                       |
+| `@server-elements/core/ci4`                 | CodeIgniter adapter                |
+| `@server-elements/core/actions`             | Optional `ActionRegistry`          |
+| `@server-elements/core/components/*`        | Reference components, individually |
+| `@server-elements/core/server-elements.css` | Reference-component stylesheet     |
+
+If you use the reference components, their stylesheet is exported at
+`@server-elements/core/server-elements.css` — link it as in Route A, or let a
+CSS-aware bundler resolve the specifier. The core runtime needs no stylesheet.
 
 ### 3. Bundle
 
 Add the entry file to whatever bundler you already run. The package is ESM-only
 and depends on no bundler behaviour — no plugins, no loaders, no CSS-in-JS.
 
-If you have no bundler, you can still serve `node_modules/@vayes/ui-core/` as
+If you have no bundler, you can still serve `node_modules/@server-elements/core/` as
 static files and use Route A's `<script type="module">` approach.
 
 ### 4. Updating
 
 ```bash
-npm install github:yahyaerturan/vayes-ui-core#v1.4.0
+npm install github:yahyaerturan/server-elements#v2.0.0
 ```
 
 Read the [CHANGELOG](../CHANGELOG.md) first. Component tags, methods,
@@ -138,11 +143,11 @@ attributes, properties and event contracts are all versioned API.
 Best when you expect to contribute changes back.
 
 ```bash
-git submodule add https://github.com/yahyaerturan/vayes-ui-core vendor/vayes-ui-core
+git submodule add https://github.com/yahyaerturan/server-elements vendor/server-elements
 git submodule update --init
 ```
 
-Then import from `vendor/vayes-ui-core/resources/js/...` as in Route A.
+Then import from `vendor/server-elements/resources/js/...` as in Route A.
 
 Submodules are a tax on everyone who clones the repository. Choose this only if
 the two-way flow is real.
@@ -177,7 +182,7 @@ $response->setHeader(csrf_header(), csrf_hash());
 Then build the client once:
 
 ```js
-import { createCodeIgniterClient } from '@vayes/ui-core/ci4';
+import { createCodeIgniterClient } from '@server-elements/core/ci4';
 
 export const { http, csrf, config } = createCodeIgniterClient();
 ```
@@ -199,7 +204,7 @@ first that fails rather than guessing.
 Open the browser console:
 
 ```js
-customElements.get('vui-modal');
+customElements.get('se-modal');
 ```
 
 Expect a class. `undefined` means the module never ran — check the network tab
@@ -208,7 +213,7 @@ for a 404 and confirm `type="module"` is on the script tag.
 ### 2. Does an element upgrade?
 
 ```js
-const el = document.createElement('vui-counter');
+const el = document.createElement('se-counter');
 document.body.append(el);
 el.mounted; // true
 el.querySelector('output'); // the rendered markup
@@ -232,8 +237,8 @@ confirms the whole chain: registration, mount, delegated action, and emit.
 The one that matters, and the one people skip:
 
 ```js
-await VayesApp.http.post('/api/your-endpoint', { ping: 1 }, { json: true });
-await VayesApp.http.post('/api/your-endpoint', { ping: 2 }, { json: true });
+await ServerElementsApp.http.post('/api/your-endpoint', { ping: 1 }, { json: true });
+await ServerElementsApp.http.post('/api/your-endpoint', { ping: 2 }, { json: true });
 ```
 
 **Both** must succeed. If the second throws a 403, the rotated token is not
@@ -248,7 +253,7 @@ reaching the browser — go back to the `after` filter above.
 | Nothing happens at all                            | The module was not imported, or `type="module"` is missing                                                     |
 | `404` on a `.js` file                             | A wrong relative path after copying — check the browser's network tab                                          |
 | `Failed to resolve module specifier`              | You used a bare import without a bundler; use Route A paths or add one                                         |
-| `define() ... does not use an allowed prefix`     | Call `setAllowedPrefixes(['vui-', 'your-'])` at boot, before importing components                              |
+| `define() ... does not use an allowed prefix`     | Call `setAllowedPrefixes(['se-', 'your-'])` at boot, before importing components                               |
 | Every write returns 403                           | CSRF: see check 4 above                                                                                        |
 | A write returns 200 with a login page in the body | `Config\Security::$redirect` is `true`; set it to `false` for API routes                                       |
 | Styles look wrong                                 | The stylesheet is optional and minimal — see [../examples/dashboard/](../examples/dashboard/) for a styled kit |
@@ -262,8 +267,8 @@ reaching the browser — go back to the `after` filter above.
 To see everything working before installing anything:
 
 ```bash
-git clone https://github.com/yahyaerturan/vayes-ui-core
-cd vayes-ui-core
+git clone https://github.com/yahyaerturan/server-elements
+cd server-elements
 npm install
 
 node scripts/serve-static.mjs 5173 .

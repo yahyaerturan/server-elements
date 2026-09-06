@@ -51,7 +51,7 @@ test('the page has no violations with an AJAX fragment inserted', async ({ page 
 
 test('the page has no violations with the dialog open', async ({ page }) => {
     await page.click('#open-modal');
-    await expect(page.locator('vui-modal dialog')).toBeVisible();
+    await expect(page.locator('se-modal dialog')).toBeVisible();
 
     expect(describe(await audit(page))).toEqual([]);
 });
@@ -89,7 +89,7 @@ test('the customer selector is named by its label, not its placeholder', async (
     const combobox = page.getByRole('combobox', { name: 'Find a customer', exact: true });
 
     // The demo's markup is the obvious thing an author would write:
-    // `<label for="customer-search">` beside `<vui-customer-selector
+    // `<label for="customer-search">` beside `<se-customer-selector
     // id="customer-search">`. A custom element is not labelable, so that label
     // is inert on its own; the component resolves it. The placeholder is still
     // present, and is still not the name.

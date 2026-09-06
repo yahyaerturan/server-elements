@@ -25,7 +25,7 @@ export default defineConfig({
             input: {
                 app: 'resources/js/app.js',
                 demo: 'resources/js/demo.js',
-                styles: 'resources/css/vayes-ui-core.css',
+                styles: 'resources/css/server-elements.css',
             },
         },
     },

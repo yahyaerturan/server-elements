@@ -56,7 +56,7 @@ const SETUP = async () => {
         }
     }
 
-    define('vui-probe-perf', Probe);
+    define('se-probe-perf', Probe);
 };
 
 test('connecting 1,000 components scales linearly with 100', async ({ page }) => {
@@ -69,7 +69,7 @@ test('connecting 1,000 components scales linearly with 100', async ({ page }) =>
             const fragment = document.createDocumentFragment();
 
             for (let index = 0; index < count; index += 1) {
-                fragment.append(document.createElement('vui-probe-perf'));
+                fragment.append(document.createElement('se-probe-perf'));
             }
 
             document.body.append(host);
@@ -114,7 +114,7 @@ test('repeated connect/disconnect cycles do not accumulate listeners', async ({ 
         const host = document.createElement('div');
         document.body.append(host);
 
-        const element = document.createElement('vui-probe-perf');
+        const element = document.createElement('se-probe-perf');
         host.append(element);
 
         const started = performance.now();
@@ -158,7 +158,7 @@ test('event delegation serves a 1,000-row list with a single listener', async ({
         const host = document.createElement('div');
         document.body.append(host);
 
-        const element = document.createElement('vui-probe-perf');
+        const element = document.createElement('se-probe-perf');
         host.append(element);
 
         // Replace the component's inner markup with a large list. No rebinding
@@ -204,9 +204,9 @@ test('repeated local state updates touch one node, not the subtree', async ({ pa
     const result = await page.evaluate(async () => {
         const host = document.createElement('div');
         document.body.append(host);
-        host.innerHTML = '<vui-counter></vui-counter>'; // safe-html: test fixture literal.
+        host.innerHTML = '<se-counter></se-counter>'; // safe-html: test fixture literal.
 
-        const counter = host.querySelector('vui-counter');
+        const counter = host.querySelector('se-counter');
         const output = counter.querySelector('[data-value]');
 
         const started = performance.now();
@@ -246,7 +246,7 @@ test('a fragment carrying 200 components upgrades them in one insertion', async 
         const html = Array.from(
             { length: 200 },
             (_value, index) =>
-                `<tr><td>Row ${index}</td><td><vui-probe-perf></vui-probe-perf></td></tr>`,
+                `<tr><td>Row ${index}</td><td><se-probe-perf></se-probe-perf></td></tr>`,
         ).join('');
 
         window.__counts.mounts = 0;
@@ -258,7 +258,7 @@ test('a fragment carrying 200 components upgrades them in one insertion', async 
         const mounts = window.__counts.mounts;
 
         window.__counts.handlers = 0;
-        host.querySelector('vui-probe-perf button').click();
+        host.querySelector('se-probe-perf button').click();
 
         const handlers = window.__counts.handlers;
         host.remove();

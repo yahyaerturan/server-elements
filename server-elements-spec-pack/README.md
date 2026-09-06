@@ -1,4 +1,4 @@
-# Vayes UI Core — Native Component Architecture Specification
+# Server Elements — Native Component Architecture Specification
 
 **Status:** Implementation specification  
 **Audience:** AI coding agents, lead developers, reviewers, maintainers  
@@ -6,7 +6,7 @@
 **Frontend runtime:** Browser-native JavaScript only  
 **Runtime framework dependencies:** **None**
 
-Vayes UI Core is a deliberately small frontend component layer for server-oriented web applications. It provides reusable/configurable UI components, explicit lifecycle management, native component events, an optional application event bus, controlled HTTP/AJAX integration, and support for both server-rendered and client-rendered components.
+Server Elements is a deliberately small frontend component layer for server-oriented web applications. It provides reusable/configurable UI components, explicit lifecycle management, native component events, an optional application event bus, controlled HTTP/AJAX integration, and support for both server-rendered and client-rendered components.
 
 It is **not** a React/Vue/Svelte replacement and must never evolve into one. The browser is the platform. The library exists only to standardize the few patterns that browsers expose at a lower level than we want to repeat throughout application code.
 

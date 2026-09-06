@@ -9,7 +9,7 @@ Symptom, cause, fix. Ordered roughly by how often each one happens.
 Check first, in the console:
 
 ```js
-customElements.get('vui-thing');
+customElements.get('se-thing');
 ```
 
 `undefined` means the module never ran, and nothing else matters yet.
@@ -212,7 +212,7 @@ update() {
 
 ## Two dialogs fight over which is on top
 
-`<vui-modal>` uses the native `<dialog>` in modal mode, which renders in the
+`<se-modal>` uses the native `<dialog>` in modal mode, which renders in the
 browser's **top layer** — above everything regardless of `z-index` — and makes
 the rest of the page inert.
 

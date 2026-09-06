@@ -18,12 +18,12 @@ Suitable:
 Example:
 
 ```html
-<vui-customer-selector
+<se-customer-selector
     endpoint="/customers/search"
     min-query="2"
     limit="20"
     disabled
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 ### Properties
@@ -71,7 +71,7 @@ Invalid input must follow documented behavior:
 Follow HTML semantics:
 
 ```html
-<vui-widget disabled></vui-widget>
+<se-widget disabled></se-widget>
 ```
 
 Presence means true. Values such as `disabled="false"` still mean true and should be documented to avoid confusion.

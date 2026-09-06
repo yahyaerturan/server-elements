@@ -12,7 +12,7 @@ export default [
             'node_modules/**',
             'public/build/**',
             'ci4/**',
-            'vayes-ui-core-spec-pack/**',
+            'server-elements-spec-pack/**',
             'test-results/**',
             'playwright-report/**',
         ],

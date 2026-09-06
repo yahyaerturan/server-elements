@@ -13,7 +13,7 @@ const load = page => page.evaluate(() => import('/examples/toggle/Toggle.js'));
 test('toggles and announces the change', async ({ page }) => {
     await load(page);
     await page.evaluate(() => {
-        document.getElementById('root').innerHTML = '<vui-toggle></vui-toggle>';
+        document.getElementById('root').innerHTML = '<se-toggle></se-toggle>';
     });
 
     const heard = await page.evaluate(() => {
@@ -33,9 +33,9 @@ test('reconnecting does not duplicate the handler', async ({ page }) => {
 
     const count = await page.evaluate(() => {
         const root = document.getElementById('root');
-        root.innerHTML = '<vui-toggle></vui-toggle>';
+        root.innerHTML = '<se-toggle></se-toggle>';
 
-        const toggle = root.querySelector('vui-toggle');
+        const toggle = root.querySelector('se-toggle');
         let events = 0;
         document.addEventListener('toggle:changed', () => (events += 1));
 

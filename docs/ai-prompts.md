@@ -49,7 +49,7 @@ prompt prevents most of them.
 Fill in the bracketed parts and delete what does not apply.
 
 ```text
-Create a component for Vayes UI Core.
+Create a component for Server Elements.
 
 CONTEXT
 Read AGENTS.md and docs/authoring-components.md first. Follow the patterns in
@@ -96,7 +96,7 @@ Fix what fails. Do not weaken a test to make it pass.
 ### Worked example
 
 ```text
-Create a component for Vayes UI Core.
+Create a component for Server Elements.
 
 CONTEXT
 Read AGENTS.md and docs/authoring-components.md first. Follow the patterns in
@@ -141,7 +141,7 @@ For anything that talks to the server. The extra paragraphs exist because
 cancellation is where agents reliably go wrong.
 
 ```text
-Create an async component for Vayes UI Core.
+Create an async component for Server Elements.
 
 CONTEXT
 Read AGENTS.md, docs/authoring-components.md, and study
@@ -186,7 +186,7 @@ HttpClient, fetch — actually runs.
 ## Prompt 3 — Convert existing code
 
 ```text
-Convert this to a Vayes UI Core component.
+Convert this to a Server Elements component.
 
 CURRENT CODE
 [paste]
@@ -220,7 +220,7 @@ DELIVERABLES
 Useful on anything an agent wrote, including its own work in a fresh session.
 
 ```text
-Review this component against the Vayes UI Core rules.
+Review this component against the Server Elements rules.
 
 Read AGENTS.md and docs/authoring-components.md, then check specifically:
 
@@ -245,7 +245,7 @@ Do not rewrite the component. Report first.
 ## Prompt 5 — Debug a lifecycle problem
 
 ```text
-Debug this in a Vayes UI Core component.
+Debug this in a Server Elements component.
 
 SYMPTOM
 [what you see]

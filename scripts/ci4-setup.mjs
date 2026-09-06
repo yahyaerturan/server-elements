@@ -43,7 +43,7 @@ if (!existsSync(assetsLink)) {
 const databaseDir = join(CI4, 'writable/database');
 mkdirSync(databaseDir, { recursive: true });
 
-const databaseFile = join(databaseDir, 'vayes-demo.sqlite');
+const databaseFile = join(databaseDir, 'server-elements-demo.sqlite');
 rmSync(databaseFile, { force: true });
 
 /** @param {string[]} args */

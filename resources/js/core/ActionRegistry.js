@@ -11,7 +11,7 @@
  * handler, e.g.
  *
  * ```html
- * <vui-customer-selector data-on-selected="invoice.customerSelected">
+ * <se-customer-selector data-on-selected="invoice.customerSelected">
  * ```
  *
  * The attribute value is an opaque **key**, never code and never a path into

@@ -1,7 +1,7 @@
 /**
- * @file `<vui-modal>` — reference component R3.
+ * @file `<se-modal>` — reference component R3.
  * @see docs/15-reference-components.md
- * @see docs/components/vui-modal.md
+ * @see docs/components/se-modal.md
  *
  * Proves client-owned markup, a cancelable pre-event, document-level
  * interaction cleaned up by the lifecycle signal, and focus management.
@@ -27,16 +27,16 @@ import { define } from '../../core/register.js';
 /**
  * A modal dialog that wraps its light-DOM children.
  *
- * @element vui-modal
- * @fires vui-modal#modal:opened
- * @fires vui-modal#modal:before-close
- * @fires vui-modal#modal:closed
+ * @element se-modal
+ * @fires se-modal#modal:opened
+ * @fires se-modal#modal:before-close
+ * @fires se-modal#modal:closed
  *
  * @example
- * <vui-modal aria-label="Edit customer">
+ * <se-modal aria-label="Edit customer">
  *     <h2>Edit customer</h2>
  *     <button type="button" data-action="close">Cancel</button>
- * </vui-modal>
+ * </se-modal>
  */
 export class Modal extends Component {
     /** @returns {string[]} */
@@ -87,7 +87,7 @@ export class Modal extends Component {
         }
 
         const existing = /** @type {HTMLDialogElement|null} */ (
-            this.querySelector(':scope > dialog[data-vui-modal]')
+            this.querySelector(':scope > dialog[data-se-modal]')
         );
 
         if (existing) {
@@ -97,11 +97,11 @@ export class Modal extends Component {
         }
 
         const dialog = document.createElement('dialog');
-        dialog.className = 'vui-modal__dialog';
-        dialog.setAttribute('data-vui-modal', '');
+        dialog.className = 'se-modal__dialog';
+        dialog.setAttribute('data-se-modal', '');
 
         const content = document.createElement('div');
-        content.className = 'vui-modal__content';
+        content.className = 'se-modal__content';
         content.setAttribute('data-content', '');
         content.append(...this.childNodes);
 
@@ -229,7 +229,7 @@ export class Modal extends Component {
         /**
          * The dialog became visible.
          *
-         * @event vui-modal#modal:opened
+         * @event se-modal#modal:opened
          * @type {CustomEvent<{}>}
          */
         this.emit('modal:opened');
@@ -254,7 +254,7 @@ export class Modal extends Component {
         /**
          * About to close. Call `preventDefault()` to keep the dialog open.
          *
-         * @event vui-modal#modal:before-close
+         * @event se-modal#modal:before-close
          * @type {CustomEvent<{ reason: CloseReason }>}
          */
         const allowed = this.emit('modal:before-close', { reason }, { cancelable: true });
@@ -270,7 +270,7 @@ export class Modal extends Component {
         /**
          * The dialog was closed.
          *
-         * @event vui-modal#modal:closed
+         * @event se-modal#modal:closed
          * @type {CustomEvent<{ reason: CloseReason }>}
          */
         this.emit('modal:closed', { reason });
@@ -294,7 +294,7 @@ export class Modal extends Component {
      * Delegate the host's accessible name onto the `<dialog>`.
      *
      * The dialog role lives on the internal `<dialog>`, not on the host, so an
-     * `aria-label` written on `<vui-modal>` names an element with no role and
+     * `aria-label` written on `<se-modal>` names an element with no role and
      * leaves the dialog anonymous. Assistive technology then announces a dialog
      * with no name, which is exactly the sort of defect an automated audit
      * misses: axe's `aria-dialog-name` rule matches `[role="dialog"]`, and a
@@ -369,4 +369,4 @@ export class Modal extends Component {
     }
 }
 
-define('vui-modal', Modal);
+define('se-modal', Modal);

@@ -23,7 +23,7 @@ const DEFINE_PROBE = async () => {
         }
     }
 
-    define('vui-probe-fragment', Probe);
+    define('se-probe-fragment', Probe);
 };
 
 test('custom elements inside an inserted fragment initialise with no scan', async ({ page }) => {
@@ -36,15 +36,15 @@ test('custom elements inside an inserted fragment initialise with no scan', asyn
         replaceFragment(
             container,
             `<div class="table">
-                <vui-probe-fragment id="a"><button data-action="go">go</button></vui-probe-fragment>
-                <vui-probe-fragment id="b"></vui-probe-fragment>
+                <se-probe-fragment id="a"><button data-action="go">go</button></se-probe-fragment>
+                <se-probe-fragment id="b"></se-probe-fragment>
             </div>`,
         );
 
         document.querySelector('#a button').click();
 
         return {
-            upgraded: [...document.querySelectorAll('vui-probe-fragment')].map(
+            upgraded: [...document.querySelectorAll('se-probe-fragment')].map(
                 node => node.dataset.upgraded,
             ),
             mounted: document.getElementById('a').mounted,
@@ -63,7 +63,7 @@ test('elements inserted before their module loads upgrade retroactively', async 
 
         replaceFragment(
             document.getElementById('root'),
-            '<vui-probe-latefragment id="late"></vui-probe-latefragment>',
+            '<se-probe-latefragment id="late"></se-probe-latefragment>',
         );
 
         const before = document.getElementById('late').dataset.upgraded ?? null;
@@ -77,8 +77,8 @@ test('elements inserted before their module loads upgrade retroactively', async 
             }
         }
 
-        define('vui-probe-latefragment', Probe);
-        await customElements.whenDefined('vui-probe-latefragment');
+        define('se-probe-latefragment', Probe);
+        await customElements.whenDefined('se-probe-latefragment');
 
         return { before, after: document.getElementById('late').dataset.upgraded };
     });
@@ -143,10 +143,10 @@ test('replaceFragment disconnects the components it removes', async ({ page }) =
         const { replaceFragment } = await import('/resources/js/core/fragments.js');
         const container = document.getElementById('root');
 
-        replaceFragment(container, '<vui-probe-fragment id="old"></vui-probe-fragment>');
+        replaceFragment(container, '<se-probe-fragment id="old"></se-probe-fragment>');
         const old = document.getElementById('old');
 
-        replaceFragment(container, '<vui-probe-fragment id="new"></vui-probe-fragment>');
+        replaceFragment(container, '<se-probe-fragment id="new"></se-probe-fragment>');
 
         return {
             oldMounted: old.mounted,

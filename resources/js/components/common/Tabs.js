@@ -1,7 +1,7 @@
 /**
- * @file `<vui-tabs>` — reference component R2.
+ * @file `<se-tabs>` — reference component R2.
  * @see docs/15-reference-components.md
- * @see docs/components/vui-tabs.md
+ * @see docs/components/se-tabs.md
  *
  * Proves the server-rendered *enhancement* mode: CodeIgniter owns the markup,
  * the component owns behaviour and ARIA state. `render()` is a no-op — the
@@ -48,8 +48,8 @@ const MIRRORED_KEYS = new Map([
  * `role="tab"` buttons, each pointing at a `role="tabpanel"` through
  * `aria-controls`.
  *
- * @element vui-tabs
- * @fires vui-tabs#tab:changed
+ * @element se-tabs
+ * @fires se-tabs#tab:changed
  */
 export class Tabs extends Component {
     /** @type {readonly string[]} */
@@ -235,7 +235,7 @@ export class Tabs extends Component {
     }
 
     /**
-     * A nested `<vui-tabs>` owns its own tabs. Without this guard an outer
+     * A nested `<se-tabs>` owns its own tabs. Without this guard an outer
      * component would steal the inner one's keyboard handling.
      *
      * @param {Element} node
@@ -304,7 +304,7 @@ export class Tabs extends Component {
         /**
          * The selected tab changed.
          *
-         * @event vui-tabs#tab:changed
+         * @event se-tabs#tab:changed
          * @type {CustomEvent<{ index: number, previousIndex: number, tabId: string|null, panelId: string|null, source: string }>}
          */
         this.emit('tab:changed', {
@@ -481,4 +481,4 @@ export class Tabs extends Component {
     };
 }
 
-define('vui-tabs', Tabs);
+define('se-tabs', Tabs);

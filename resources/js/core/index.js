@@ -1,12 +1,12 @@
 /**
- * @file Public entry point for the Vayes UI Core runtime.
+ * @file Public entry point for the Server Elements runtime.
  *
  * Importing this module has no side effects: it defines no custom element,
  * installs no global listener and touches no DOM. Component modules perform
  * their own registration when imported.
  *
  * `ActionRegistry` is deliberately absent — it is optional and imported from
- * `@vayes/ui-core/actions` by applications that need it (Phase 8).
+ * `@server-elements/core/actions` by applications that need it (Phase 8).
  */
 
 export { Component } from './Component.js';

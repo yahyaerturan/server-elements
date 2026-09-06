@@ -24,7 +24,7 @@ compatible with a strict CSP. Do not create loose global JavaScript variables.
 ## 2. Build the client
 
 ```js
-import { createCodeIgniterClient } from '@vayes/ui-core/ci4';
+import { createCodeIgniterClient } from '@server-elements/core/ci4';
 
 const { http, csrf, config } = createCodeIgniterClient();
 ```

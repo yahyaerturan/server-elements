@@ -3,7 +3,7 @@
  *
  * Admin kit example code, not library API.
  *
- * Built on the native `<dialog>` for the same reason `<vui-modal>` is: the
+ * Built on the native `<dialog>` for the same reason `<se-modal>` is: the
  * platform supplies the focus trap, background inertness, the top layer and
  * Escape handling, all of which are laborious to rebuild and easy to get subtly
  * wrong.

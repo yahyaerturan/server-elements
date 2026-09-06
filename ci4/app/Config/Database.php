@@ -31,7 +31,7 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'database' => WRITEPATH . 'database/vayes-demo.sqlite',
+        'database' => WRITEPATH . 'database/server-elements-demo.sqlite',
         'DBDriver' => 'SQLite3',
         'DBPrefix' => '',
         'DBDebug'  => true,

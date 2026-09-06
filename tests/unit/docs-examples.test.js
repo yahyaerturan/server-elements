@@ -65,7 +65,7 @@ async function normalise(code) {
 describe('the getting-started example stays executable', () => {
     test('the documented component matches examples/toggle/Toggle.js', async () => {
         const markdown = await read('docs/getting-started.md');
-        const documented = await normalise(extractJsBlock(markdown, "define('vui-toggle'"));
+        const documented = await normalise(extractJsBlock(markdown, "define('se-toggle'"));
         const actual = await normalise(await read('examples/toggle/Toggle.js'));
 
         assert.equal(

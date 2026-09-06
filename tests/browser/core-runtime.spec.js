@@ -35,9 +35,9 @@ test.describe('Component lifecycle', () => {
                 }
             }
 
-            define('vui-probe-order', Probe);
+            define('se-probe-order', Probe);
 
-            const element = document.createElement('vui-probe-order');
+            const element = document.createElement('se-probe-order');
             const root = document.getElementById('root');
 
             root.append(element);
@@ -77,9 +77,9 @@ test.describe('Component lifecycle', () => {
                 }
             }
 
-            define('vui-probe-double', Probe);
+            define('se-probe-double', Probe);
 
-            const element = document.createElement('vui-probe-double');
+            const element = document.createElement('se-probe-double');
             document.getElementById('root').append(element);
             element.connectedCallback();
             element.connectedCallback();
@@ -103,9 +103,9 @@ test.describe('Component lifecycle', () => {
                 }
             }
 
-            define('vui-probe-orphan', Probe);
+            define('se-probe-orphan', Probe);
 
-            const element = document.createElement('vui-probe-orphan');
+            const element = document.createElement('se-probe-orphan');
             element.disconnectedCallback();
 
             return count;
@@ -135,10 +135,10 @@ test.describe('Component lifecycle', () => {
                 }
             }
 
-            define('vui-probe-listeners', Probe);
+            define('se-probe-listeners', Probe);
 
             const root = document.getElementById('root');
-            const element = document.createElement('vui-probe-listeners');
+            const element = document.createElement('se-probe-listeners');
             root.append(element);
 
             // Mount cycle 1
@@ -172,10 +172,10 @@ test.describe('Component lifecycle', () => {
             const { define } = await import('/resources/js/core/register.js');
 
             class Probe extends Component {}
-            define('vui-probe-signal', Probe);
+            define('se-probe-signal', Probe);
 
             const root = document.getElementById('root');
-            const element = document.createElement('vui-probe-signal');
+            const element = document.createElement('se-probe-signal');
             root.append(element);
 
             const first = element.signal;
@@ -223,9 +223,9 @@ test.describe('Component lifecycle', () => {
                 }
             }
 
-            define('vui-probe-request', Probe);
+            define('se-probe-request', Probe);
 
-            const element = document.createElement('vui-probe-request');
+            const element = document.createElement('se-probe-request');
             document.getElementById('root').append(element);
             element.remove();
 
@@ -242,7 +242,7 @@ test.describe('Custom element upgrade', () => {
     }) => {
         const result = await page.evaluate(async () => {
             const root = document.getElementById('root');
-            root.innerHTML = '<vui-probe-late></vui-probe-late>';
+            root.innerHTML = '<se-probe-late></se-probe-late>';
 
             const element = root.firstElementChild;
             const beforeDefinition = element.constructor.name;
@@ -256,8 +256,8 @@ test.describe('Custom element upgrade', () => {
                 }
             }
 
-            define('vui-probe-late', Probe);
-            await customElements.whenDefined('vui-probe-late');
+            define('se-probe-late', Probe);
+            await customElements.whenDefined('se-probe-late');
 
             return {
                 beforeDefinition,
@@ -276,7 +276,7 @@ test.describe('Custom element upgrade', () => {
     test('a rich property assigned before definition reaches the accessor', async ({ page }) => {
         const result = await page.evaluate(async () => {
             const root = document.getElementById('root');
-            root.innerHTML = '<vui-probe-upgrade id="target"></vui-probe-upgrade>';
+            root.innerHTML = '<se-probe-upgrade id="target"></se-probe-upgrade>';
 
             const element = document.getElementById('target');
 
@@ -304,8 +304,8 @@ test.describe('Custom element upgrade', () => {
                 }
             }
 
-            define('vui-probe-upgrade', Probe);
-            await customElements.whenDefined('vui-probe-upgrade');
+            define('se-probe-upgrade', Probe);
+            await customElements.whenDefined('se-probe-upgrade');
 
             return {
                 viaAccessor: element.customer,
@@ -326,11 +326,11 @@ test.describe('Custom element upgrade', () => {
 
             class Probe extends Component {}
 
-            define('vui-probe-idempotent', Probe);
+            define('se-probe-idempotent', Probe);
             let secondCallThrew = false;
 
             try {
-                define('vui-probe-idempotent', Probe);
+                define('se-probe-idempotent', Probe);
             } catch {
                 secondCallThrew = true;
             }
@@ -348,7 +348,7 @@ test.describe('Custom element upgrade', () => {
 
             return {
                 secondCallThrew,
-                registered: customElements.get('vui-probe-idempotent')?.name,
+                registered: customElements.get('se-probe-idempotent')?.name,
                 rejectsNoHyphen: rejects('probe'),
                 rejectsForeignPrefix: rejects('app-probe'),
                 rejectsReserved: rejects('annotation-xml'),
@@ -372,10 +372,10 @@ test.describe('Component events', () => {
             const { define } = await import('/resources/js/core/register.js');
 
             class Probe extends Component {}
-            define('vui-probe-emit', Probe);
+            define('se-probe-emit', Probe);
 
             const root = document.getElementById('root');
-            const element = document.createElement('vui-probe-emit');
+            const element = document.createElement('se-probe-emit');
             root.append(element);
 
             /** @type {Array<{ at: string, detail: unknown }>} */
@@ -452,15 +452,15 @@ test.describe('Component events', () => {
                 }
             }
 
-            define('vui-probe-publisher', Publisher);
-            define('vui-probe-consumer', Consumer);
+            define('se-probe-publisher', Publisher);
+            define('se-probe-consumer', Consumer);
 
             document.getElementById('root').innerHTML =
-                '<vui-probe-consumer><div><vui-probe-publisher></vui-probe-publisher></div></vui-probe-consumer>';
+                '<se-probe-consumer><div><se-probe-publisher></se-probe-publisher></div></se-probe-consumer>';
 
-            document.querySelector('vui-probe-publisher').announce();
+            document.querySelector('se-probe-publisher').announce();
 
-            return document.querySelector('vui-probe-consumer').received;
+            return document.querySelector('se-probe-consumer').received;
         });
 
         expect(received).toEqual({ id: 'c-1' });
@@ -481,10 +481,10 @@ test.describe('Component events', () => {
                 }
             }
 
-            define('vui-probe-bus', Probe);
+            define('se-probe-bus', Probe);
 
             const root = document.getElementById('root');
-            const element = document.createElement('vui-probe-bus');
+            const element = document.createElement('se-probe-bus');
             root.append(element);
 
             bus.emit('session:changed');
@@ -516,9 +516,9 @@ test.describe('Query helpers', () => {
                 }
             }
 
-            define('vui-probe-query', Probe);
+            define('se-probe-query', Probe);
 
-            const element = document.createElement('vui-probe-query');
+            const element = document.createElement('se-probe-query');
             document.getElementById('root').append(element);
 
             return {
@@ -550,10 +550,10 @@ test.describe('Module side effects', () => {
                 sameOnError: window.onerror === before.onerror,
                 sameOnRejection: window.onunhandledrejection === before.onunhandledrejection,
                 definesNoElements: [
-                    'vui-counter',
-                    'vui-tabs',
-                    'vui-modal',
-                    'vui-customer-selector',
+                    'se-counter',
+                    'se-tabs',
+                    'se-modal',
+                    'se-customer-selector',
                 ].every(name => customElements.get(name) === undefined),
                 domUntouched: document.body.childElementCount === before.listenerCount,
             };

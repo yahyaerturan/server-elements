@@ -43,13 +43,13 @@ const app = {
     }),
 };
 
-globalThis.VayesApp = app;
+globalThis.ServerElementsApp = app;
 
 // Components created from markup cannot receive a rich property from the
 // server, so the application injects the configured service as elements appear.
 // `customElements.whenDefined` guarantees the accessor exists before assignment.
-customElements.whenDefined('vui-customer-selector').then(() => {
-    for (const element of document.querySelectorAll('vui-customer-selector')) {
+customElements.whenDefined('se-customer-selector').then(() => {
+    for (const element of document.querySelectorAll('se-customer-selector')) {
         /** @type {{ service?: CustomerService }} */ (element).service = app.customers;
     }
 });

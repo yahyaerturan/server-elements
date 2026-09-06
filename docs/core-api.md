@@ -9,7 +9,7 @@ any core module has no side effects: nothing is registered, no listener is
 installed and no DOM is touched.
 
 ```js
-import { Component, EventBus, HttpClient, define } from '@vayes/ui-core';
+import { Component, EventBus, HttpClient, define } from '@server-elements/core';
 ```
 
 ---
@@ -254,7 +254,7 @@ Purely informational; it cannot change the outcome.
 ## Fragments
 
 ```js
-import { parseFragment, replaceFragment, appendFragment } from '@vayes/ui-core';
+import { parseFragment, replaceFragment, appendFragment } from '@server-elements/core';
 ```
 
 | Function                           | Description                                                  |
@@ -279,9 +279,9 @@ layer is not a sanitiser and no home-grown sanitiser will be added
 ## Registration
 
 ```js
-import { define, setAllowedPrefixes } from '@vayes/ui-core';
+import { define, setAllowedPrefixes } from '@server-elements/core';
 
-define('vui-modal', Modal);
+define('se-modal', Modal);
 ```
 
 | Function                              | Description                                                                  |
@@ -289,7 +289,7 @@ define('vui-modal', Modal);
 | `define(name, constructor, options?)` | Idempotent registration; validates name and prefix. Returns the constructor. |
 | `isValidCustomElementName(name)`      | Syntax check, including reserved names.                                      |
 | `hasAllowedPrefix(name)`              | Prefix policy check.                                                         |
-| `setAllowedPrefixes(prefixes)`        | Replace the allowlist (default `['vui-']`).                                  |
+| `setAllowedPrefixes(prefixes)`        | Replace the allowlist (default `['se-']`).                                   |
 | `getAllowedPrefixes()`                | Current allowlist.                                                           |
 
 Re-defining the same name with the same constructor is a no-op; a _different_
@@ -304,7 +304,7 @@ import {
   createHttpObserver,
   observeComponentEvents,
   redactHeaders,
-} from '@vayes/ui-core/core/diagnostics.js';
+} from '@server-elements/core/core/diagnostics.js';
 ```
 
 Opt-in and side-effect-free on import. Request bodies are never logged, and
@@ -322,7 +322,7 @@ reference components or the demo application. Import it only if the product
 genuinely needs server markup to name an application handler:
 
 ```js
-import { actions } from '@vayes/ui-core/actions';
+import { actions } from '@server-elements/core/actions';
 
 actions.register('invoice.customerSelected', context => {
   /* ... */

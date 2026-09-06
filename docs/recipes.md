@@ -21,7 +21,7 @@ public function table(): string
 ```
 
 ```js
-import { replaceFragment } from '@vayes/ui-core';
+import { replaceFragment } from '@server-elements/core';
 
 async function refresh(query) {
   const html = await app.http.html('/customers/table', { query: { q: query } });
@@ -173,7 +173,7 @@ Through the bus only when there is genuinely no DOM relationship — session
 expiry, locale change, connectivity:
 
 ```js
-import { events } from '@vayes/ui-core';
+import { events } from '@server-elements/core';
 
 events.emit('session:expired', { at: Date.now() });
 
@@ -190,10 +190,7 @@ what the DOM already does well.
 
 ```html
 <label for="customer-search">Find a customer</label>
-<vui-customer-selector
-  id="customer-search"
-  endpoint="/api/customers/search"
-></vui-customer-selector>
+<se-customer-selector id="customer-search" endpoint="/api/customers/search"></se-customer-selector>
 ```
 
 That works, but only because the component resolves it. A custom element is not
@@ -235,7 +232,7 @@ State lives in a semantic attribute, so CSS can hook it without JavaScript
 duplicating class names:
 
 ```css
-vui-thing[data-state='loading'] .spinner {
+se-thing[data-state='loading'] .spinner {
   display: block;
 }
 ```
@@ -248,7 +245,7 @@ focus.
 ## Create a component from JavaScript
 
 ```js
-const card = document.createElement('vui-customer-card');
+const card = document.createElement('se-customer-card');
 card.customer = customer; // property, before or after insertion
 container.append(card); // mounts here
 ```
@@ -308,7 +305,7 @@ Never retry POST, PUT, PATCH or DELETE this way.
 ## Log requests during development
 
 ```js
-import { createHttpObserver } from '@vayes/ui-core/core/diagnostics.js';
+import { createHttpObserver } from '@server-elements/core/core/diagnostics.js';
 
 const { http } = createCodeIgniterClient({
   observer: import.meta.env?.DEV ? createHttpObserver() : null,

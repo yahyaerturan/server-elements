@@ -1,4 +1,4 @@
-# `<vui-counter>` — Component Specification
+# `<se-counter>` — Component Specification
 
 ## Purpose
 

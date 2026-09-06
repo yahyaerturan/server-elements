@@ -1,4 +1,4 @@
-# `<vui-component-name>` — Component Specification
+# `<se-component-name>` — Component Specification
 
 ## Purpose
 

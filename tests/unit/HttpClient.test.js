@@ -45,7 +45,7 @@ describe('HttpClient request policy', () => {
     test('html() asks for HTML and returns text', async () => {
         const { http, calls } = createClient(
             () =>
-                new Response('<vui-counter value="2"></vui-counter>', {
+                new Response('<se-counter value="2"></se-counter>', {
                     headers: { 'Content-Type': 'text/html' },
                 }),
         );
@@ -53,7 +53,7 @@ describe('HttpClient request policy', () => {
         const html = await http.html('/customers/table');
 
         assert.match(calls[0].headers.get('Accept') ?? '', /text\/html/);
-        assert.equal(html, '<vui-counter value="2"></vui-counter>');
+        assert.equal(html, '<se-counter value="2"></se-counter>');
     });
 
     test('per-request headers override defaults', async () => {

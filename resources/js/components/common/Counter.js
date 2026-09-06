@@ -1,7 +1,7 @@
 /**
- * @file `<vui-counter>` — reference component R1.
+ * @file `<se-counter>` — reference component R1.
  * @see docs/15-reference-components.md
- * @see docs/components/vui-counter.md
+ * @see docs/components/se-counter.md
  *
  * Proves the smallest complete component contract: client-owned markup, local
  * state, incremental DOM updates, delegated `data-action` handling, a public
@@ -14,11 +14,11 @@ import { define } from '../../core/register.js';
 /**
  * A numeric stepper.
  *
- * @element vui-counter
- * @fires vui-counter#counter:changed
+ * @element se-counter
+ * @fires se-counter#counter:changed
  *
  * @example
- * <vui-counter value="3" step="5"></vui-counter>
+ * <se-counter value="3" step="5"></se-counter>
  */
 export class Counter extends Component {
     /** @type {readonly string[]} */
@@ -114,9 +114,9 @@ export class Counter extends Component {
         // safe-html: a static, developer-authored literal with no interpolation
         // at all. The value is written separately through textContent.
         this.innerHTML = `
-            <button class="vui-counter__button" type="button" data-action="decrement" aria-label="Decrease">−</button>
-            <output class="vui-counter__value" data-value>0</output>
-            <button class="vui-counter__button" type="button" data-action="increment" aria-label="Increase">+</button>
+            <button class="se-counter__button" type="button" data-action="decrement" aria-label="Decrease">−</button>
+            <output class="se-counter__value" data-value>0</output>
+            <button class="se-counter__button" type="button" data-action="increment" aria-label="Increase">+</button>
         `;
 
         this.#cacheElements();
@@ -213,7 +213,7 @@ export class Counter extends Component {
         /**
          * The value changed.
          *
-         * @event vui-counter#counter:changed
+         * @event se-counter#counter:changed
          * @type {CustomEvent<{ value: number, previous: number, source: string }>}
          */
         this.emit('counter:changed', {
@@ -282,4 +282,4 @@ export class Counter extends Component {
     }
 }
 
-define('vui-counter', Counter);
+define('se-counter', Counter);

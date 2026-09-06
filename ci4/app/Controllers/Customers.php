@@ -15,7 +15,7 @@ class Customers extends BaseController
     private const MAX_LIMIT = 50;
 
     /**
-     * JSON search endpoint consumed by `<vui-customer-selector>`.
+     * JSON search endpoint consumed by `<se-customer-selector>`.
      */
     public function search(): ResponseInterface
     {

@@ -1,7 +1,7 @@
 # Admin kit
 
 A curated set of admin-dashboard building blocks, styled with Tailwind CSS 4 and
-built on Vayes UI Core.
+built on Server Elements.
 
 ```bash
 node scripts/serve-static.mjs 5173 .
@@ -16,10 +16,10 @@ node scripts/serve-static.mjs 5173 .
 
 Nothing here is exported from the package, versioned, or covered by any
 compatibility promise. **Copy what you want into your application and own it
-from there.** The `kit-` prefix exists so that is obvious in the DOM: a `vui-`
+from there.** The `kit-` prefix exists so that is obvious in the DOM: a `se-`
 tag is the library, a `kit-` tag is something you copied.
 
-That is deliberate. `docs/21-styling.md` is explicit that Vayes UI Core is not a
+That is deliberate. `docs/21-styling.md` is explicit that Server Elements is not a
 CSS framework and not a design system; shipping one inside the package would
 make every visual decision a versioned API and every restyle a breaking change.
 
@@ -209,7 +209,7 @@ application with a dark theme:
   }
 
   /* 2. State the colour explicitly, so it holds regardless. */
-  vui-modal .vui-modal__dialog {
+  se-modal .se-modal__dialog {
     @apply text-slate-900 dark:text-slate-100;
   }
   ```

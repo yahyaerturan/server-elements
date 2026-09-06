@@ -308,7 +308,7 @@
 /* The reference components ship no styles of their own beyond structure, so the
    showcase supplies the handful its markup needs. */
 @layer components {
-  vui-modal .vui-modal__dialog {
+  se-modal .se-modal__dialog {
     @apply m-auto w-full max-w-lg rounded-xl border border-slate-200 bg-white p-6 shadow-2xl;
     @apply backdrop:bg-slate-900/40 dark:border-slate-700 dark:bg-slate-800;
     /* See the note on kit-confirm-dialog: a <dialog> does not inherit text
@@ -316,39 +316,39 @@
     @apply text-slate-900 dark:text-slate-100;
   }
 
-  vui-tabs [role='tablist'] {
+  se-tabs [role='tablist'] {
     @apply flex gap-1 border-b border-slate-200 dark:border-slate-700;
   }
 
-  vui-tabs [role='tab'] {
+  se-tabs [role='tab'] {
     @apply -mb-px border-b-2 border-transparent px-4 py-2.5 text-sm font-medium text-slate-500;
     @apply hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200;
   }
 
   /* brand-500 on the dark surface measures 4.49:1 — just under AA. The lighter
      step clears it; contrast is checked by the axe pass in tests/browser. */
-  vui-tabs [role='tab'][aria-selected='true'] {
+  se-tabs [role='tab'][aria-selected='true'] {
     @apply border-brand-600 text-brand-700 dark:border-brand-400 dark:text-brand-400;
   }
 
-  vui-counter {
+  se-counter {
     @apply inline-flex items-center gap-2;
   }
 
-  vui-counter button {
+  se-counter button {
     @apply flex size-7 items-center justify-center rounded-md border border-slate-300 text-slate-600;
     @apply hover:bg-slate-100 disabled:opacity-40 dark:border-slate-600 dark:text-slate-300;
   }
 
-  vui-customer-selector .vui-customer-selector__list {
+  se-customer-selector .se-customer-selector__list {
     @apply mt-1 rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800;
   }
 
-  vui-customer-selector .vui-customer-selector__option {
+  se-customer-selector .se-customer-selector__option {
     @apply px-3 py-2 text-sm;
   }
 
-  vui-customer-selector .vui-customer-selector__option.is-active {
+  se-customer-selector .se-customer-selector__option.is-active {
     @apply bg-brand-50 dark:bg-slate-700;
   }
 }

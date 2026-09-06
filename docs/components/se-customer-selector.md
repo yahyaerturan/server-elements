@@ -1,4 +1,4 @@
-# `<vui-customer-selector>` — Component Specification
+# `<se-customer-selector>` — Component Specification
 
 ## Purpose
 

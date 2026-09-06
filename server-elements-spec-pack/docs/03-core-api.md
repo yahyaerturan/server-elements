@@ -248,15 +248,15 @@ It must validate that the name follows Custom Element naming requirements and pr
 Default project prefix:
 
 ```text
-vui-
+se-
 ```
 
 Examples:
 
 ```text
-vui-modal
-vui-tabs
-vui-customer-selector
+se-modal
+se-tabs
+se-customer-selector
 ```
 
 Application-specific components may use a product prefix if desired, but one repository should not mix prefixes without an ADR.

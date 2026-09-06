@@ -179,8 +179,8 @@ import './components/customer/CustomerSelector.js';
 When the module defining a custom element is evaluated:
 
 ```js
-if (!customElements.get('vui-customer-selector')) {
-    customElements.define('vui-customer-selector', CustomerSelector);
+if (!customElements.get('se-customer-selector')) {
+    customElements.define('se-customer-selector', CustomerSelector);
 }
 ```
 
@@ -191,10 +191,10 @@ No DOM-ready initialization loop is required for Custom Elements. Existing match
 ### Server-first enhancement
 
 ```html
-<vui-customer-card customer-id="...">
+<se-customer-card customer-id="...">
     <h3>Server rendered name</h3>
     <button data-action="edit">Edit</button>
-</vui-customer-card>
+</se-customer-card>
 ```
 
 JS attaches behavior while preserving meaningful server markup.
@@ -202,7 +202,7 @@ JS attaches behavior while preserving meaningful server markup.
 ### Client-owned markup
 
 ```html
-<vui-modal></vui-modal>
+<se-modal></se-modal>
 ```
 
 The component creates its internal light DOM on first connection.
@@ -210,7 +210,7 @@ The component creates its internal light DOM on first connection.
 ### JavaScript-created component
 
 ```js
-const el = document.createElement('vui-customer-card');
+const el = document.createElement('se-customer-card');
 el.customer = customer;
 container.append(el);
 ```
@@ -220,7 +220,7 @@ container.append(el);
 CI4 returns:
 
 ```html
-<vui-customer-card customer-id="..."></vui-customer-card>
+<se-customer-card customer-id="..."></se-customer-card>
 ```
 
 The client inserts it. The native custom-element lifecycle performs initialization.

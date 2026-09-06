@@ -2,7 +2,7 @@
 
 ## Two event scopes
 
-Vayes UI Core distinguishes:
+Server Elements distinguishes:
 
 1. **DOM component events** — the default.
 2. **Application/global events** — only when DOM hierarchy is irrelevant.
@@ -145,9 +145,9 @@ Do not implement arbitrary method invocation from HTML without an allowlist.
 If the product genuinely needs subscribers configurable from server markup, an optional `ActionRegistry` can support identifiers such as:
 
 ```html
-<vui-customer-selector
+<se-customer-selector
     data-on-selected="invoice.customerSelected"
-></vui-customer-selector>
+></se-customer-selector>
 ```
 
 The value resolves only against a pre-registered map:

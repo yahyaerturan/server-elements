@@ -7,6 +7,42 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Component tag names, public methods, attributes, properties and emitted event
 contracts are all versioned API (docs/18-maintenance-versioning.md).
 
+## [2.0.0] — 2026-09-06
+
+### Changed
+
+- **The library is renamed from Vayes UI Core to Server Elements.** This is a
+  hard-cut major release: every old identifier is removed at once, with no
+  compatibility aliases and no deprecation period. Nothing about how the library
+  _behaves_ changed — only the spelling of its names — so a single clean break
+  was chosen over a long dual-name tail. The rename is:
+
+  | 1.x                                                                    | 2.0                                            |
+  | ---------------------------------------------------------------------- | ---------------------------------------------- |
+  | package / import `@vayes/ui-core`                                      | `@server-elements/core`                        |
+  | element tag + CSS-class prefix `vui-`                                  | `se-`                                          |
+  | `vui-{modal,tabs,counter,toggle,customer-selector}`                    | `se-{modal,tabs,counter,toggle,customer-selector}` |
+  | stylesheet `vayes-ui-core.css`                                         | `server-elements.css`                          |
+  | default allowed prefix `['vui-']` (`setAllowedPrefixes`)               | `['se-']`                                      |
+  | diagnostics log prefixes `[vui:http]`, `[vui:event]`                   | `[se:http]`, `[se:event]`                      |
+  | console prefix `[vayes-ui-core]`                                       | `[server-elements]`                            |
+  | copied-asset directory `public/assets/vui/`                           | `public/assets/se/`                            |
+  | spec-pack directory `vayes-ui-core-spec-pack/`                        | `server-elements-spec-pack/`                   |
+
+  The runtime API — every method, attribute, property and emitted event name —
+  is identical to 1.4.0. Applications that declared their own prefix with
+  `setAllowedPrefixes(['your-'])` are untouched by the prefix change; only the
+  library default moved.
+
+### Added
+
+- **A migration guide**, [docs/migration-v2.md](docs/migration-v2.md): the rename
+  map, the codemod walkthrough, and the manual checklist for what a codemod
+  cannot see (server-built tag names, markup in a database, allow-listing CSP).
+- **A consumer codemod**, `scripts/rename-to-server-elements.mjs`, shipped inside
+  the package. It rewrites an application tree from the old identifiers to the
+  new ones — dry-run by default, `--write` to apply — and evaluates no code.
+
 ## [1.4.0] — 2026-09-05
 
 ### Changed

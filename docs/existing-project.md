@@ -31,8 +31,8 @@ Take them one at a time. Decisions 1 and 2 are reversible in an afternoon.
 Copy `resources/js/` into your application's asset directory.
 
 ```bash
-cp -R vayes-ui-core/resources/js  app-root/assets/js/vui
-cp -R vayes-ui-core/resources/css app-root/assets/css/vui
+cp -R server-elements/resources/js  app-root/assets/js/se
+cp -R server-elements/resources/css app-root/assets/css/se
 ```
 
 This works because **every import in the shipped source is a relative path** —
@@ -48,18 +48,18 @@ non-relative import ever appears.
 If your project already has a `package.json`:
 
 ```bash
-npm install github:your-org/vayes-ui-core#v1.1.0
+npm install github:your-org/server-elements#v1.1.0
 ```
 
 Pin a tag. The package is ESM-only, has zero runtime dependencies, and exposes
 these entry points:
 
-| Specifier                     | Contents                                    |
-| ----------------------------- | ------------------------------------------- |
-| `@vayes/ui-core`              | the core runtime                            |
-| `@vayes/ui-core/ci4`          | the CodeIgniter adapter                     |
-| `@vayes/ui-core/actions`      | the optional `ActionRegistry`               |
-| `@vayes/ui-core/components/*` | reference components, imported individually |
+| Specifier                            | Contents                                    |
+| ------------------------------------ | ------------------------------------------- |
+| `@server-elements/core`              | the core runtime                            |
+| `@server-elements/core/ci4`          | the CodeIgniter adapter                     |
+| `@server-elements/core/actions`      | the optional `ActionRegistry`               |
+| `@server-elements/core/components/*` | reference components, imported individually |
 
 - **Good for:** projects that already run a package manager.
 - **Costs:** your build must handle ESM. Most modern bundlers do by default.
@@ -67,7 +67,7 @@ these entry points:
 ### Option C: git submodule
 
 ```bash
-git submodule add https://your-host/vayes-ui-core vendor-js/vayes-ui-core
+git submodule add https://your-host/server-elements vendor-js/server-elements
 ```
 
 - **Good for:** you expect to contribute changes back.
@@ -86,7 +86,7 @@ The source is ES modules with relative imports and no dependencies. Serve the
 directory and load one entry point:
 
 ```html
-<script type="module" src="/assets/js/vui/app.js"></script>
+<script type="module" src="/assets/js/se/app.js"></script>
 ```
 
 This genuinely works — the demo application and the entire browser test suite
@@ -103,7 +103,7 @@ Import the modules from your existing entry file and let the bundler do what it
 already does:
 
 ```js
-import '@vayes/ui-core/components/common/Modal.js';
+import '@server-elements/core/components/common/Modal.js';
 import './components/InvoiceRow.js';
 ```
 
@@ -118,8 +118,8 @@ module registers its element; that is the entire wiring step.
 
 ```js
 // assets/js/components.js
-import '@vayes/ui-core/components/common/Modal.js';
-import '@vayes/ui-core/components/common/Tabs.js';
+import '@server-elements/core/components/common/Modal.js';
+import '@server-elements/core/components/common/Tabs.js';
 import './components/InvoiceRow.js';
 ```
 
@@ -152,7 +152,7 @@ strict CSP therefore permits:
 Then build the client once:
 
 ```js
-import { createCodeIgniterClient } from '@vayes/ui-core/ci4';
+import { createCodeIgniterClient } from '@server-elements/core/ci4';
 
 export const { http, csrf, config } = createCodeIgniterClient();
 ```
@@ -198,13 +198,13 @@ Full detail in [ci4-integration.md](ci4-integration.md).
 
 ## Step 5 — Choose your prefix
 
-The default policy accepts `vui-` only. Register your product's prefix once, at
+The default policy accepts `se-` only. Register your product's prefix once, at
 boot, before any component module is imported:
 
 ```js
-import { setAllowedPrefixes } from '@vayes/ui-core';
+import { setAllowedPrefixes } from '@server-elements/core';
 
-setAllowedPrefixes(['vui-', 'acme-']);
+setAllowedPrefixes(['se-', 'acme-']);
 ```
 
 Your own components then use your prefix:
@@ -249,7 +249,7 @@ initQuantityStepper(document);
 As a component:
 
 ```js
-import { Component, define } from '@vayes/ui-core';
+import { Component, define } from '@server-elements/core';
 
 class QuantityStepper extends Component {
   #value = 0;
@@ -314,7 +314,7 @@ subtree.
 
 ### If you already have a modal system
 
-`<vui-modal>` uses the native `<dialog>` element in modal mode, which renders in
+`<se-modal>` uses the native `<dialog>` element in modal mode, which renders in
 the browser's **top layer** — above every other element regardless of
 `z-index` — and makes the rest of the page inert. If you already have a modal
 implementation, expect two systems that each believe they are on top.
@@ -330,7 +330,7 @@ regardless of how the replacement happens.
 For server-rendered fragments, prefer the provided helper:
 
 ```js
-import { replaceFragment } from '@vayes/ui-core';
+import { replaceFragment } from '@server-elements/core';
 
 const html = await http.html('/customers/table');
 replaceFragment(container, html);

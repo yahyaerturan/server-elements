@@ -2,21 +2,21 @@ import { test, expect } from './support/fixtures.js';
 
 const load = page => page.evaluate(() => import('/resources/js/components/common/Counter.js'));
 
-test.describe('<vui-counter>', () => {
+test.describe('<se-counter>', () => {
     test('renders owned markup and applies the value attribute', async ({ page }) => {
         await load(page);
         await page.evaluate(() => {
-            document.getElementById('root').innerHTML = '<vui-counter value="5"></vui-counter>';
+            document.getElementById('root').innerHTML = '<se-counter value="5"></se-counter>';
         });
 
-        await expect(page.locator('vui-counter [data-value]')).toHaveText('5');
-        await expect(page.locator('vui-counter button')).toHaveCount(2);
+        await expect(page.locator('se-counter [data-value]')).toHaveText('5');
+        await expect(page.locator('se-counter button')).toHaveCount(2);
     });
 
     test('defaults to zero and step one', async ({ page }) => {
         await load(page);
         await page.evaluate(() => {
-            document.getElementById('root').innerHTML = '<vui-counter></vui-counter>';
+            document.getElementById('root').innerHTML = '<se-counter></se-counter>';
         });
 
         await expect(page.locator('[data-value]')).toHaveText('0');
@@ -30,7 +30,7 @@ test.describe('<vui-counter>', () => {
 
         const events = await page.evaluate(async () => {
             document.getElementById('root').innerHTML =
-                '<vui-counter value="10" step="5"></vui-counter>';
+                '<se-counter value="10" step="5"></se-counter>';
 
             /** @type {unknown[]} */
             const heard = [];
@@ -55,10 +55,10 @@ test.describe('<vui-counter>', () => {
         await load(page);
 
         const value = await page.evaluate(() => {
-            document.getElementById('root').innerHTML = '<vui-counter step="abc"></vui-counter>';
+            document.getElementById('root').innerHTML = '<se-counter step="abc"></se-counter>';
             document.querySelector('[data-action="increment"]').click();
 
-            return document.querySelector('vui-counter').value;
+            return document.querySelector('se-counter').value;
         });
 
         expect(value).toBe(1);
@@ -70,8 +70,8 @@ test.describe('<vui-counter>', () => {
         await load(page);
 
         const result = await page.evaluate(() => {
-            document.getElementById('root').innerHTML = '<vui-counter></vui-counter>';
-            const counter = document.querySelector('vui-counter');
+            document.getElementById('root').innerHTML = '<se-counter></se-counter>';
+            const counter = document.querySelector('se-counter');
 
             counter.increment();
             const reflected = counter.getAttribute('value');
@@ -90,8 +90,8 @@ test.describe('<vui-counter>', () => {
         await load(page);
 
         const result = await page.evaluate(() => {
-            document.getElementById('root').innerHTML = '<vui-counter disabled></vui-counter>';
-            const counter = document.querySelector('vui-counter');
+            document.getElementById('root').innerHTML = '<se-counter disabled></se-counter>';
+            const counter = document.querySelector('se-counter');
 
             counter.querySelector('[data-action="increment"]').click();
             const whileDisabled = counter.value;
@@ -116,9 +116,9 @@ test.describe('<vui-counter>', () => {
 
         const disabled = await page.evaluate(() => {
             document.getElementById('root').innerHTML =
-                '<vui-counter disabled="false"></vui-counter>';
+                '<se-counter disabled="false"></se-counter>';
 
-            return document.querySelector('vui-counter').disabled;
+            return document.querySelector('se-counter').disabled;
         });
 
         expect(disabled).toBe(true);
@@ -129,9 +129,9 @@ test.describe('<vui-counter>', () => {
 
         const result = await page.evaluate(() => {
             const root = document.getElementById('root');
-            root.innerHTML = '<vui-counter value="3"></vui-counter>';
+            root.innerHTML = '<se-counter value="3"></se-counter>';
 
-            const counter = root.querySelector('vui-counter');
+            const counter = root.querySelector('se-counter');
             let events = 0;
             document.addEventListener('counter:changed', () => (events += 1));
 
@@ -152,12 +152,12 @@ test.describe('<vui-counter>', () => {
 
     test('a value assigned before definition survives the upgrade', async ({ page }) => {
         const result = await page.evaluate(async () => {
-            document.getElementById('root').innerHTML = '<vui-counter id="c"></vui-counter>';
+            document.getElementById('root').innerHTML = '<se-counter id="c"></se-counter>';
             const element = document.getElementById('c');
             element.value = 12;
 
             await import('/resources/js/components/common/Counter.js');
-            await customElements.whenDefined('vui-counter');
+            await customElements.whenDefined('se-counter');
 
             return {
                 value: element.value,
@@ -173,10 +173,7 @@ test.describe('<vui-counter>', () => {
 
         const text = await page.evaluate(async () => {
             const { replaceFragment } = await import('/resources/js/core/fragments.js');
-            replaceFragment(
-                document.getElementById('root'),
-                '<vui-counter value="7"></vui-counter>',
-            );
+            replaceFragment(document.getElementById('root'), '<se-counter value="7"></se-counter>');
 
             document.querySelector('[data-action="increment"]').click();
 
@@ -189,7 +186,7 @@ test.describe('<vui-counter>', () => {
     test('is keyboard operable through native buttons', async ({ page }) => {
         await load(page);
         await page.evaluate(() => {
-            document.getElementById('root').innerHTML = '<vui-counter></vui-counter>';
+            document.getElementById('root').innerHTML = '<se-counter></se-counter>';
         });
 
         await page.locator('[data-action="increment"]').focus();

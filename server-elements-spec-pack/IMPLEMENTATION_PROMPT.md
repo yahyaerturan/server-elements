@@ -1,6 +1,6 @@
 # Prompt for an AI Coding Agent
 
-Implement **Vayes UI Core** using the complete specification in this repository.
+Implement **Server Elements** using the complete specification in this repository.
 
 ## Mandatory preparation
 

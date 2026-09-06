@@ -36,11 +36,11 @@ updates, a public event, and accessible announcements.
 
 This is the first question because everything else follows from it.
 
-| Mode             | The server renders | `render()`           | Example         |
-| ---------------- | ------------------ | -------------------- | --------------- |
-| **Enhancement**  | all the markup     | nothing              | `<vui-tabs>`    |
-| **Client-owned** | an empty element   | builds the structure | `<vui-counter>` |
-| **Hybrid**       | the content        | adds a wrapper once  | `<vui-modal>`   |
+| Mode             | The server renders | `render()`           | Example        |
+| ---------------- | ------------------ | -------------------- | -------------- |
+| **Enhancement**  | all the markup     | nothing              | `<se-tabs>`    |
+| **Client-owned** | an empty element   | builds the structure | `<se-counter>` |
+| **Hybrid**       | the content        | adds a wrapper once  | `<se-modal>`   |
 
 **Prefer enhancement.** Markup the server already renders works before
 JavaScript arrives, survives a failed asset load, and cannot be destroyed by a
@@ -48,7 +48,7 @@ rerender.
 
 ### Step 2 — Write the contract down first
 
-Before implementing. Copy `vayes-ui-core-spec-pack/COMPONENT_SPEC_TEMPLATE.md`
+Before implementing. Copy `server-elements-spec-pack/COMPONENT_SPEC_TEMPLATE.md`
 into `docs/components/your-thing.md` and fill in:
 
 - **Attributes** — name, type, default, observed?
@@ -67,9 +67,9 @@ contract you cannot change later without a major version.
 Once, at boot, before importing any component:
 
 ```js
-import { setAllowedPrefixes } from '@vayes/ui-core';
+import { setAllowedPrefixes } from '@server-elements/core';
 
-setAllowedPrefixes(['vui-', 'app-']);
+setAllowedPrefixes(['se-', 'app-']);
 ```
 
 `define()` rejects anything outside the allowlist. That is deliberate: three
@@ -281,7 +281,7 @@ If your component wraps a control, it needs an accessible name — and this is e
 to get wrong, because **a custom element is not a labelable element**.
 `<label for="my-thing">` beside `<my-thing id="my-thing">` labels nothing.
 Forward the host's `aria-label` and `aria-labelledby` to the internal control;
-`<vui-customer-selector>` shows the full pattern.
+`<se-customer-selector>` shows the full pattern.
 
 Never let a `placeholder` be the accessible name. It disappears as the user
 types, and an automated audit will still pass.
@@ -322,7 +322,7 @@ can rescue you, because none of them ship a stylesheet to override.
 the inline axis are behaviour, and behaviour is what a component owns. A
 horizontal collection laid out under `dir="rtl"` renders right-to-left, so
 there <kbd>→</kbd> moves to the _previous_ item: "next" follows reading order,
-not screen geometry. `<vui-tabs>` mirrors its horizontal arrows for exactly
+not screen geometry. `<se-tabs>` mirrors its horizontal arrows for exactly
 this reason.
 
 Three rules for implementing it:
