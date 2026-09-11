@@ -659,7 +659,7 @@ export class CustomerSelector extends Component {
         const ariaLabel = this.getAttribute('aria-label');
 
         /** @type {string|null} */
-        let name = null;
+        let name;
 
         if (labelledBy) {
             input.setAttribute('aria-labelledby', labelledBy);

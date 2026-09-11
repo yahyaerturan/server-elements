@@ -143,7 +143,7 @@ Start at [docs/README.md](docs/README.md), or jump straight to what you need:
 | [docs/concepts.md](docs/concepts.md)                         | You want the mental model first — six ideas, and what each replaces         |
 | [docs/getting-started.md](docs/getting-started.md)           | You want a working, tested component in about ten minutes                   |
 | [docs/existing-project.md](docs/existing-project.md)         | **You already have a CodeIgniter app** and want to adopt this incrementally |
-| [docs/migration-v2.md](docs/migration-v2.md)                 | You are upgrading from Vayes UI Core v1 to Server Elements v2               |
+| [docs/migration-v2.md](docs/migration-v2.md)                 | You are upgrading from v1 to Server Elements v2                             |
 | [docs/authoring-components.md](docs/authoring-components.md) | You are writing your own component, start to finish                         |
 | [docs/recipes.md](docs/recipes.md)                           | You have a specific task: a form, a filtered list, a confirm dialog         |
 | [docs/troubleshooting.md](docs/troubleshooting.md)           | Something does not work                                                     |

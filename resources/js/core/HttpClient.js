@@ -545,6 +545,7 @@ export async function parseJsonResponse(response) {
             `Expected JSON from ${response.url || 'the server'} but parsing failed: ${
                 /** @type {Error} */ (error).message
             }`,
+            { cause: error },
         );
     }
 }

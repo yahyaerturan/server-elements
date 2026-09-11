@@ -10,7 +10,7 @@ Start wherever matches what you are doing.
 | [concepts.md](concepts.md)                 | You want the mental model before touching code. Six ideas, and what each replaces. |
 | [getting-started.md](getting-started.md)   | You want a working component in a new or empty project in about ten minutes.       |
 | [existing-project.md](existing-project.md) | You have a CodeIgniter application already and want to adopt this incrementally.   |
-| [migration-v2.md](migration-v2.md)         | You are upgrading from v1 (Vayes UI Core) to v2 (Server Elements).                 |
+| [migration-v2.md](migration-v2.md)         | You are upgrading from v1 to v2 (Server Elements).                                 |
 
 ## Building with it
 

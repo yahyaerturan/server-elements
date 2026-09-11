@@ -72,6 +72,7 @@ export function readJsonConfig(id = 'app-config', doc = document) {
     } catch (error) {
         throw new SyntaxError(
             `Boot configuration in #${id} is not valid JSON: ${/** @type {Error} */ (error).message}`,
+            { cause: error },
         );
     }
 }
