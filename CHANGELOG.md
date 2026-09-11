@@ -7,6 +7,44 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Component tag names, public methods, attributes, properties and emitted event
 contracts are all versioned API (docs/18-maintenance-versioning.md).
 
+## [2.0.1] — 2026-09-11
+
+Maintenance release. The runtime API and the shipped bundle are unchanged — this
+is tooling, error-diagnostics fidelity and documentation text — so it is a patch.
+
+### Changed
+
+- **Development dependencies updated to their latest published versions:** ESLint
+  9 → 10.10.0 (with `@eslint/js` → 10.0.1), `globals` 15 → 17.12.0, Vite 6 →
+  8.3.0, `@playwright/test` 1.62 → 1.63.0 and Prettier 3.4 → 3.9.6.
+  `axe-core`/`@axe-core/playwright` (4.13.0) and
+  `tailwindcss`/`@tailwindcss/cli` (4.3.3) were already current. None is a
+  runtime dependency, so the published artifact keeps the same shape as 2.0.0.
+- **The development and CI Node baseline is now 25.2.0**, pinned in `.nvmrc` and
+  consumed by every CI job through `node-version-file` so the two cannot drift.
+  `engines.node` stays `>=20`: that is the floor advertised to consumers of the
+  zero-dependency runtime, not the version this repository is developed on.
+
+### Fixed
+
+- **Two rethrown `SyntaxError`s discarded the error they were wrapping.** The
+  JSON parse failures in `core/HttpClient.js` (`parseJsonResponse`) and
+  `ci4/bootConfig.js` now attach the original exception as `{ cause: error }`, so
+  a malformed payload can be diagnosed from the underlying parser message and not
+  only the summary text. ESLint 10's stricter `js.configs.recommended` (its new
+  `preserve-caught-error` rule) surfaced both; they were fixed at the code level
+  rather than by disabling the rule, consistent with the ban on silently
+  swallowed errors. A dead `= null` initializer in `<se-customer-selector>`'s
+  label logic, flagged by the same update's `no-useless-assignment`, was dropped.
+- Two lingering v1 brand references in the `README.md` and `docs/README.md` link
+  text were neutralized; no `vui-`/Vayes identifier remains in shipped code.
+
+### Note
+
+Verified across all three test layers on the updated toolchain: 77 unit tests,
+465 browser tests (Chromium, Firefox, WebKit) and 33 live CodeIgniter integration
+tests, all passing.
+
 ## [2.0.0] — 2026-09-06
 
 ### Changed
